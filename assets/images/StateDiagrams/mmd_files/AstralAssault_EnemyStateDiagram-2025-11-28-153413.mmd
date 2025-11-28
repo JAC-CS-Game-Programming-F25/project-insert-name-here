@@ -1,0 +1,12 @@
+---
+config:
+  theme: mc
+  layout: dagre
+  look: handDrawn
+---
+stateDiagram
+  direction LR
+
+  [*] --> IdleState
+  IdleState --> DyingState:Defeated
+  DyingState --> [*]:False

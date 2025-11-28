@@ -58,12 +58,18 @@ This implementation of *Astral Assault* is a single player experience with an AI
 17. View the placement of their end-game score one a 10-person leader board.
 18. Have the option to choose to play again, beginning a new game if yes and returning to the title screen if no.
 
-### 🤖 State Diagram
+### 🤖 State Diagrams
+Game State Diagram
+![Game State Diagram](./assets/images/StateDiagrams/png_files/AstralAssault_GameStateDiagram-2025-11-28-151841.png)
 
-> [!note]
-> Remember that you'll need diagrams for not only game states but entity states as well.
+Player State Diagram
+![Game State Diagram](./assets/images/StateDiagrams/png_files/AstralAssault_PlayerStateDiagram-2025-11-28-153118.png)
 
-![State Diagram](./assets/images/StateDiagram.png)
+Enemy State Diagram
+![Game State Diagram](./assets/images/StateDiagrams/png_files/AstralAssault_EnemyStateDiagram-2025-11-28-153409.png)
+
+Matriach State Diagram
+![Game State Diagram](./assets/images/StateDiagrams/png_files/AstralAssault_MatriarchStateDiagram-2025-11-28-153816.png)
 
 ### 🗺️ Class Diagram
 

@@ -1,0 +1,18 @@
+---
+config:
+  theme: mc
+  layout: dagre
+  look: handDrawn
+---
+stateDiagram
+  direction LR
+  state death_if_state <<choice>>
+
+  [*] --> IdleState
+  IdleState --> ShootingState:Left mouse button pressed
+  ShootingState --> IdleState:Left mouse button released
+  IdleState --> DyingState:Life lost
+  DyingState --> death_if_state:PlayersLives > 0
+  death_if_state --> RevivingState:True
+  death_if_state --> [*]:False
+  RevivingState --> IdleState

@@ -1,0 +1,24 @@
+---
+config:
+  theme: mc
+  layout: dagre
+  look: handDrawn
+---
+stateDiagram
+  direction LR
+  state if_state <<choice>>
+  state pause_if_state <<choice>>
+  [*] --> TitleScreenState
+  TitleScreenState --> ShipSelectScreenState
+  ShipSelectScreenState --> PlayState
+  PlayState --> PauseState:ESCAPE key pressed
+  PauseState --> pause_if_state:Option chosen
+  pause_if_state --> PlayState:Resume option selected
+  pause_if_state --> TitleScreenState:Exit option selected
+  PlayState --> LevelTransitionState:Level beaten
+  LevelTransitionState --> PlayState
+  PlayState --> GameOverState:PlayerLives = 0
+  GameOverState --> LeaderboardPlacementState
+  LeaderboardPlacementState --> if_state:Play Again?
+  if_state --> PlayState:Yes
+  if_state --> TitleScreenState:No

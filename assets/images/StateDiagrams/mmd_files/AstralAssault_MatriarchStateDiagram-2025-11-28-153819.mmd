@@ -1,0 +1,15 @@
+---
+config:
+  theme: mc
+  layout: dagre
+  look: handDrawn
+---
+stateDiagram
+  direction LR
+
+  [*] --> IdleState
+  IdleState --> DisappearingState: Teleport timer hits zero
+  DisappearingState --> ReappearingState
+  ReappearingState --> IdleState: Teleport timer restarts
+  IdleState --> DyingState:Defeated
+  DyingState --> [*]:False
