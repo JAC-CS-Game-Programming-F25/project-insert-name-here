@@ -75,6 +75,19 @@ Matriach State Diagram
 
 ![Class Diagram](./assets/images/ClassDiagram.png)
 
+GameEntity -> Player, Enemy, Shield
+Enemy -> Pawn, Psion, Matriarch
+Enemy Factory
+
+PlayState:
+- Has one level
+
+Level:
+- Has many hordes
+
+Horde:
+- Has many enemies
+
 ### 🧵 Wireframes
 
 > [!note]
