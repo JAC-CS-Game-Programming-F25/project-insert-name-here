@@ -30,6 +30,11 @@ There will be three types of aliens that can appear throughout a play session, e
 - Scion: Scions are aliens that slowly circle around the ship as they spawn, however their speed increases the closer they get (which caps out at a certain distance from the player).
 - Matriarch: Matriarchs, while being amongst the largest of aliens, are the most difficult to destroy as after a certain period of time they will teleport to a random area on the screen. They are normally invincible but have a specific time-window before and after their next teleportation where they are vulnerable to attack. Its invincible state is depicted as a repeated flashing from transparent to opaque, which otherwise isn't present when it's vulnerable.
 
+In addition, there is a chance that upon an alien's defeat that the player gains one of the following power-ups (in which only one can be active at a time):
+- Rapid Fire: The player's fire-rate is temporily doubled for 5 seconds. Has a 5% chance of being obtained when an alien is defeated.
+- Shield: The player can be shielded from enemy contact once without losing a life. Has a 2% chance of being obtained when an alien is defeated.
+- Time Dilation: Time appears to slow down for 5 seconds, with enemy and player-bullet speeds decreasing to 25% of their original value. Has a 0.5% chance of being obtained when an alien is defeated.
+
 This implementation of *Astral Assault* is a single player experience with an AI. The game is played primarily with the mouse to interact with the cards and general GUI. The players can optionally hit `P` on their keyboard to pause the game.
 
 ## 📃 Requirements
@@ -37,16 +42,21 @@ This implementation of *Astral Assault* is a single player experience with an AI
 1. Start a game session by pressing 'ENTER'.
 2. Choosing a desired ship sprite before the game itself begins (purely cosmetic, similar to what was seen in the Breakout lectures).
 3. Start the game at level 1 with three lives.
-4. See their ship
+4. See their ship at the center of the screen.
 5. Aiming their ship by moving their mouse cursor around.
-6. See incoming aliens in their various type.
+6. See incoming aliens in their various types.
 7. Firing projectiles at aliens by aiming and clicking their left mouse button.
 8. Progress to the next horde if all aliens within the current one are destroyed.
 9. Progress to the next level if all hordes within the current one are cleared.
-10. View their current score as they progress
-11. Lose a life if an alien makes contact with the player's ship.
-12. Lose the game if the player loses all three of their lives.
-13. View the placement of their end-game score one a 10-person leader board.
+10. Acquire different power ups during the game upon defeating enemies.
+11. View their current score as they progress.
+12. Pause the game by pressing 'ESCAPE'.
+13. Option to resume game in pause state.
+14. Option to exit game in pause state.
+15. Lose a life if an alien makes contact with the player's ship.
+16. Lose the game if the player loses all three of their lives.
+17. View the placement of their end-game score one a 10-person leader board.
+18. Have the option to choose to play again, beginning a new game if yes and returning to the title screen if no.
 
 ### 🤖 State Diagram
 
