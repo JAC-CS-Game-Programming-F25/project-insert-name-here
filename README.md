@@ -321,7 +321,7 @@ The GUI will be kept simple yet visually appealing, as to make sure the game is 
 
 #### 🔊 Sounds
 
-All sounds were created and downloaded from [jsfxr](https://sfxr.me/) for the following sound effects:
+All sounds were created and downloaded from [jsfxr](https://sfxr.me/) for the following sound effects (subject to change):
 
 - [playerShoot](./assets/sounds/playerShoot.wav)
 - [playerDeath](./assets/sounds/playerDeath.wav)
@@ -332,7 +332,7 @@ All sounds were created and downloaded from [jsfxr](https://sfxr.me/) for the fo
 - [shield](./assets/sounds/shield.wav)
 - [timeDilation](./assets/sounds/timeDilation.wav)
 
-All music tracks were taken from
+Music to be added.
 
 ## Nice to Have Features
 
