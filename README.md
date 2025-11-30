@@ -1,12 +1,12 @@
 # Final Project
 
--   [ ] Read the [project requirements](https://vikramsinghmtl.github.io/420-5P6-Game-Programming/project/requirements).
--   [ ] Replace the sample proposal below with the one for your game idea.
--   [ ] Get the proposal greenlit by Vik.
--   [ ] Place any assets in `assets/` and remember to update `src/config.json`.
--   [ ] Decide on a height and width inside `src/globals.js`. The height and width will most likely be determined based on the size of the assets you find.
--   [ ] Start building the individual components of your game, constantly referring to the proposal you wrote to keep yourself on track.
--   [ ] Good luck, you got this!
+- [x] Read the [project requirements](https://vikramsinghmtl.github.io/420-5P6-Game-Programming/project/requirements).
+- [x] Replace the sample proposal below with the one for your game idea.
+- [ ] Get the proposal greenlit by Vik.
+- [ ] Place any assets in `assets/` and remember to update `src/config.json`.
+- [ ] Decide on a height and width inside `src/globals.js`. The height and width will most likely be determined based on the size of the assets you find.
+- [ ] Start building the individual components of your game, constantly referring to the proposal you wrote to keep yourself on track.
+- [ ] Good luck, you got this!
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## ✒️ Description
 
-In this interstellar shoot 'em up game, players take on the role of a pilot and their ship having to eternally survive through hordes upon hordes of alien enemies until they themselves are defeated. Players will control a stationary ship at the center of their screa, and aim to fire at and destroy various incoming aliens. *Astral Assault* is a level-based game, with the player having to face more hordes for each level the further they progress. There is no present win condition, only the goal to simply survive for as long as possible and get as high of a score as possible.
+In this interstellar shoot 'em up game, players take on the role of a pilot and their ship having to eternally survive through hordes upon hordes of alien enemies until they themselves are defeated. Players will control a stationary ship at the center of their screa, and aim to fire at and destroy various incoming aliens. _Astral Assault_ is a level-based game, with the player having to face more hordes for each level the further they progress. There is no present win condition, only the goal to simply survive for as long as possible and get as high of a score as possible.
 
 ## 🕹️ Gameplay
 
@@ -26,16 +26,16 @@ Players begin a game session with a starting total of three lives, in which losi
 For each level (starting at 1), players will face a series of alien hordes/waves equal to the number value of the current level itself. The aliens themselves spawn from the edge of the screen and are set to continuously approach the player's ship until they're either fired at and destroyed (in one-hit) or make contact with the player in which the player's ship is destroyed, the game pauses, and they lose one life before the game resumes. As the game continues to progress into higher levels, new types of aliens as well as larger numbers of them will begin to appear, forcing the diffculty to continuously increase until it most-likely becomes impossible for any normal person to continue surviving.
 
 There will be three types of aliens that can appear throughout a play session, each with different AIs in the forms of their movement patterns:
+
 - Pawn: Pawns are simple aliens that will always move in a straight line towards the player.
 - Scion: Scions are aliens that slowly circle around the ship as they spawn, however their speed increases the closer they get (which caps out at a certain distance from the player).
-- Matriarch: Matriarchs, while being amongst the largest of aliens, are the most difficult to destroy as after a certain period of time they will teleport to a random area on the screen. They are normally invincible but have a specific time-window before and after their next teleportation where they are vulnerable to attack. Its invincible state is depicted as a repeated flashing from transparent to opaque, which otherwise isn't present when it's vulnerable.
 
 In addition, there is a chance that upon an alien's defeat that the player gains one of the following power-ups (in which only one can be active at a time):
+
 - Rapid Fire: The player's fire-rate is temporily doubled for 5 seconds. Has a 5% chance of being obtained when an alien is defeated.
 - Shield: The player can be shielded from enemy contact once without losing a life. Has a 2% chance of being obtained when an alien is defeated.
-- Time Dilation: Time appears to slow down for 5 seconds, with enemy and player-bullet speeds decreasing to 25% of their original value. Has a 0.5% chance of being obtained when an alien is defeated.
 
-This implementation of *Astral Assault* is a single player experience with an AI. The game is played primarily with the mouse to interact with the cards and general GUI. The players can optionally hit `P` on their keyboard to pause the game.
+This implementation of _Astral Assault_ is a single player experience with an AI. The game is played primarily with the mouse to interact with the cards and general GUI. The players can optionally hit `P` on their keyboard to pause the game.
 
 ## 📃 Requirements
 
@@ -59,6 +59,7 @@ This implementation of *Astral Assault* is a single player experience with an AI
 18. Have the option to choose to play again, beginning a new game if yes and returning to the title screen if no.
 
 ### 🤖 State Diagrams
+
 Game State Diagram
 ![Game State Diagram](./assets/images/StateDiagrams/png_files/AstralAssault_GameStateDiagram-2025-11-28-151841.png)
 
@@ -73,63 +74,288 @@ Matriach State Diagram
 
 ### 🗺️ Class Diagram
 
-![Class Diagram](./assets/images/ClassDiagram.png)
+### GameEntity Class Inheritance Diagram
 
-GameEntity -> Player, Enemy, Shield
-Enemy -> Pawn, Psion, Matriarch
-Enemy Factory
+```mermaid
+---
+config:
+  theme: dark
+  look: classic
+  layout: dagre
+---
+classDiagram
+direction TB
+    class GameEntity {
+	    +PlayState playState
+	    +Vector position
+	    +Vector canvasPosition
+	    +Vector dimensions
+	    +Hitbox hitbox
+	    +StateMachine stateMachine
+	    +Array~Sprite~ sprites
+	    +int currentFrame
+	    +int speed
+	    +bool isDead
+	    +update(float dt)
+	    +render(float x, float y)
+	    +changeState(State state, Object params)
+	    +didCollideWithEntity(Hitbox hitbox)
+	    +pause()
+    }
 
-PlayState:
-- Has one level
+    class Player {
+		+int baseFireRate$
+		+Level level
+	    +float angle
+	    +int fireRate
+		+int lives
+	    +Animation currentAnimation
+	    +Array~Sprite~ idleSprites
+	    +Array~Sprite~ deathSprites
+	    +Array~Sprite~ reviveSprites
+	    +Timer fireCooldown
+	    +initializeStateMachine()
+	    +setAngle()
+        +checkForShoot()
+	    +fireBullet()
+    }
 
-Level:
-- Has many hordes
+    class Alien {
+		+int baseSpeed$
+		+Horde horde
+	    +float angle
+		+int speed
+		+int pointValue
+	    +Animation currentAnimation
+	    +Array~Sprite~ idleSprites
+	    +Array~Sprite~ deathSprites
+	    +bool isDead
+	    +calculateNewPosition() Vector
+	    +calculateDistanceFromPlayer() Vector
+	    +updatePosition(x,y)
+    }
 
-Horde:
-- Has many enemies
+    class Shield {
+	    +Animation currentAnimation
+	    +Array~Sprite~ idleSprites
+	    +initializeStateMachine()
+	    +detectEnemyCollision()
+    }
+
+    class Pawn {
+	    +initializeStateMachine()
+	    +updatePosition(x, y)
+    }
+
+    class Scion {
+	    +initializeStateMachine()
+	    +updatePosition(x, y)
+    }
+
+    class Matriarch {
+	    +Array~Sprite~ disappearSprites
+	    +Array~Sprite~ reappearSprites
+	    +Timer disappearTimer
+	    +Timer reappearTimer
+	    +initializeStateMachine()
+	    +disappear()
+	    +reappear()
+	    +updatePosition(x, y)
+    }
+
+    class Bullet {
+	    +float angle
+	    +updatePosition(x, y)
+    }
+
+	note for Matriarch "Nice to have feature"
+
+    GameEntity <|-- Player
+    GameEntity <|-- Alien
+    GameEntity <|-- Shield
+    GameEntity <|-- Bullet
+    Alien <|-- Pawn
+    Alien <|-- Scion
+    Alien <|-- Matriarch
+
+```
+
+### PlayState Class Composition Diagram
+
+```mermaid
+---
+config:
+  theme: dark
+  look: classic
+  layout: dagre
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+directionTB
+        class PlayState {
+            +int rapidFireChance$
+            +int shieldChance$
+            +int timeDilationChance$
+            +int rapidFireDuration$
+            +int timeDilationDuration$
+
+            +int currentLevelValue
+            +Player player
+            +Level level
+            +Array~GameEntity~ entities
+            +int score
+
+            +enter()
+            +exit()
+            +update()
+            +render()
+
+            +pause()
+            +resume()
+
+            +exitToTitleScreen()
+
+            +updateEntities()
+            +updateScore()
+            +checkForPlayerDefeat()
+            +checkForShieldUse()
+            +checkForAlienDefeat()
+
+            +checkForNextLevel()
+
+            +activateRapidFire()
+            +activateShield()
+            +activateTimeDilation()
+            +deactivateRapidFire()
+            +deactivateTimeDilation()
+
+            +nextLevel(int nextLevelValue)
+        }
+
+        class Level {
+            +PlayState playState
+            int currentHordeValue
+            +Array~Horde~ hordes
+            +Horde currentHorde
+
+            +initializeHordes() Array~Horde~
+            +checkForNextHorde()
+            +nextHorde(int currentHordeValue)
+        }
+
+        class Horde {
+            +Level level
+            +Array~Aliens~ aliens
+
+            +initializeHorde() Array~Aliens~
+            +cleanUpDeadAliens()
+        }
+
+        class Player
+
+        class Alien
+
+		PlayState "1" --> "1" Level
+        PlayState "1" --> "1" Player
+        Level "1" --> "1..*" Horde
+        Horde "1" --> "1..*" Alien
+
+        note for PlayState "Elements related to 'timeDilation' are nice to have."
+
+```
+
+### EnemyFactory Class Diagram
+
+```mermaid
+---
+config:
+  theme: dark
+  look: classic
+  layout: dagre
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+directionTB
+    class AlienFactory {
+        +AlienType alienType
+        +float newAlienX
+        +float newAlienY
+
+        +createInstance(type, x, y) Alien$
+    }
+
+    class Pawn
+    class Scion
+    class Matriarch
+
+    AlienFactory -- Alien
+    Alien <|-- Pawn
+    Alien <|-- Scion
+    Alien <|-- Matriarch
+
+    note for Matriarch "Nice to have feature"
+```
 
 ### 🧵 Wireframes
 
-> [!note]
-> Your wireframes don't have to be super polished. They can even be black/white and hand drawn. I'm just looking for a rough idea about what you're visualizing.
-
-![Main Menu](./assets/images/Main-Menu.png)
-
--   _Let's Play_ will navigate to the main game.
--   _Upload Cards_ will navigation to the forms for uploading and parsing the data files for the game.
--   _Change Log_ will navigate the user to a page with a list of features/changes that have been implemented throughout the development of the game.
-
-![Game Board](./assets/images/Game-Board.png)
-
-We want to keep the GUI as simple and clear as possible by having cards with relevant images to act as a way for the user to intuitively navigate the game. We want to implement a layout that would look like as if one were playing a match of the Pokémon Trading Card Game with physical cards in real life. Clicking on any of the cards will reveal that card's details to the player.
+![Screens](./assets/images/wireframes.jpg)
 
 ### 🎨 Assets
 
-We used [app.diagrams.net](https://app.diagrams.net/) to create the wireframes. Wireframes are the equivalent to the skeleton of a web app since they are used to describe the functionality of the product and the users experience.
+I drew the wireframes myself on pencil and paper. Wireframes are the equivalent to the skeleton of a web app since they are used to describe the functionality of the product and the users experience.
 
-We plan on following trends already found in other trading card video games, such as Pokémon Trading Card Game Online, Hearthstone, Magic the Gathering Arena, and Gwent.
-
-The GUI will be kept simple and playful, as to make sure the game is easy to understand what each component does and is, as well as light hearted to keep to the Pokémon theme.
+The GUI will be kept simple yet visually appealing, as to make sure the game is easy to understand, what each component does and is, as well actually make for an enjoyable game.
 
 #### 🖼️ Images
 
--   Most images will be used from the well known community driven wikipedia site, [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Main_Page).
--   Especially their [Trading Card Game section](<https://bulbapedia.bulbagarden.net/wiki/Full_Art_card_(TCG)>).
+- [Spaceship](./assets/sprites/ship-sprites/spaceships.png) and [projectile](./assets/sprites/ship-sprites/projectiles.png) assets taken from Lowich's [Spaceship sprites](https://lowich.itch.io/free-spaceship-sprites?download) asset pack on Itch.io. Lowrich also included a downloadable [license](./assets/licenses/lowich_license.txt).
+- [Orange](./assets/sprites/explosion-sprites/Fire%20Effect%20and%20Bullet%2016x16.png) and [Blue](./assets/sprites/explosion-sprites/Water%20Effect%20and%20Bullet%2016x16.png) effect assets taken from BDragon1727's [Free Effect and Bullet 16x16](https://bdragon1727.itch.io/free-effect-and-bullet-16x16) asset pack on Itch.io.
+- [Alien](./assets/sprites/aliens/) assets designed by me using [Piskel](https://www.piskelapp.com/).
 
 #### ✏️ Fonts
 
-For fonts, a simple sans-serif like Roboto will look quite nice. It's a font that is legible, light on storage size, and fun to keep with the theme we're going for. We also used a more cartoonish Pokemon font for the title screen.
-
--   [Pokemon](https://www.dafont.com/pokemon.font)
--   [Roboto](https://fonts.google.com/specimen/Roboto)
+- [Vermin Vibes 1989](https://www.dafont.com/vermin-vibes-1989.font) will be used for the title screen's primary label, a sharp and retro look for the arcade-style game I am attempting to make.
+- [Pixellari](https://www.dafont.com/pixellari.font) a simple and legible pixelized font that will be used for all other implementations of text.
 
 #### 🔊 Sounds
 
-All sounds were taken from [freesound.org](https://freesound.org) for the actions pertaining to cards.
+All sounds were created and downloaded from [jsfxr](https://sfxr.me/) for the following sound effects:
 
--   [Shuffle cards](https://freesound.org/people/VKProduktion/sounds/217502/)
--   [Flip card](https://freesound.org/people/Splashdust/sounds/84322/)
+- [playerShoot](./assets/sounds/playerShoot.wav)
+- [playerDeath](./assets/sounds/playerDeath.wav)
+- [enemyDeath](./assets/sounds/enemyDeath.wav)
+- [nextLevel](./assets/sounds/nextLevel.wav)
+- [nextHorde](./assets/sounds/nextHorde.wav)
+- [rapidFire](./assets/sounds/rapidFire.wav)
+- [shield](./assets/sounds/shield.wav)
+- [timeDilation](./assets/sounds/timeDilation.wav)
 
-### 📚 References
+All music tracks were taken from
 
--   [Pokemon Rulebook](http://assets.pokemon.com/assets/cms2/pdf/trading-card-game/rulebook/xy8-rulebook-en.pdf)
+## Nice to Have Features
+
+### Minor: Third Alien - Matriarch
+
+Matriarchs are the most difficult alien to destroy as after a certain period of time they will teleport to a random area on the screen. They are normally invincible but have a specific time-window before and after their next teleportation where they are vulnerable to attack. Its invincible state is depicted as a repeated flashing from transparent to opaque, which otherwise isn't present when it's vulnerable.
+
+### Minor: Third Power-Up - Time Dilation
+
+Time appears to slow down for 5 seconds, with enemy and player-bullet speeds decreasing to 25% of their original value. Has a 0.5% chance of being obtained when an alien is defeated.
+
+### Major: Boss Fight
+
+A special boss fight would be added to occur at every 5th level, where the playstyle suddenly changes to mimic _Space Invaders_ as you fight against a much larger alien with various attacks and its own health pool.
+
+### Major: More Custom Art
+
+More assets for things like the ships, general effects, etc, would be personally illustrated rather than taken from third-party sources and other artists.
+
+### Wait what?: Custom Music
+
+The music would be personally composed rather than taken from third-party sources and other artists.
+
+### Even More Stuff
+
+I don't know. There might be more stuff, or less stuff, or different stuff. We'll cross that bridge when we get there.
