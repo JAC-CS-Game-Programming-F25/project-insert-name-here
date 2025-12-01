@@ -1,0 +1,100 @@
+{
+	"images": [
+		{
+			"name": "pawn",
+			"path": "./assets/images/sprites/aliens/pawn",
+			"width": 256,
+			"height": 256
+		},
+		{
+			"name": "scion",
+			"path": "./assets/images/sprites/aliens/scion",
+			"width": 256,
+			"height": 256
+		},
+		{
+			"name": "water-effect-and-bullet-16x16",
+			"path": "./assets/images/sprites/effects/water-effect-and-bullet-16x16.png",
+			"width": 576,
+			"height": 208
+		},
+		{
+			"name": "fire-effect-and-bullet-16x16",
+			"path": "./assets/images/sprites/effects/fire-effect-and-bullet-16x16.png",
+			"width": 576,
+			"height": 208
+		},
+		{
+			"name": "projectiles",
+			"path": "./assets/images/sprites/ship/projectiles",
+			"width": 1500,
+			"height": 1000
+		},
+		{
+			"name": "spaceships",
+			"path": "./assets/images/sprites/ship/spaceships",
+			"width": 640,
+			"height": 256
+		}
+	],
+	"fonts": [
+		{
+			"name": "Pixellari",
+			"path": "./assets/fonts/Pixellari.ttf"
+		},
+		{
+			"name": "VerminVibes1989",
+			"path": "./assets/fonts/VerminVibes1989.ttf"
+		}
+	],
+	"sounds": [
+		{
+			"name": "enemy-death",
+			"path": "./assets/sounds/effects/enemy-death.wav",
+			"size": 5,
+			"volume": 0.2
+		},
+		{
+			"name": "next-horde",
+			"path": "./assets/sounds/effects/next-horde.wav",
+			"size": 1,
+			"volume": 0.1
+		},
+		{
+			"name": "next-level",
+			"path": "./assets/sounds/effects/next-level.wav",
+			"size": 1,
+			"volume": 0.1
+		},
+		{
+			"name": "player-death",
+			"path": "./assets/sounds/effects/player-death.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "player-shoot",
+			"path": "./assets/sounds/effects/player-shoot.wav",
+			"size": 5,
+			"volume": 0.2
+		},
+		{
+			"name": "rapid-fire",
+			"path": "./assets/sounds/effects/rapid-fire.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "shield",
+			"path": "./assets/sounds/effects/shield.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "time-dilation",
+			"path": "./assets/sounds/effects/time-dilation.wav",
+			"size": 1,
+			"volume": 0.2
+		}
+	]
+}
