@@ -1,13 +1,13 @@
 const PlayerShip = {
-    John: 'john',
-    Mary: 'mary',
-    Thomas: 'thomas',
-    Julia: 'julie',
-    Robert: 'robert',
-    Ezekiel: 'ezekiel',
-    Annabeth: 'annabeth',
-    Susie: 'susie',
-    Kris: 'kris'
+    John: 0,
+    Mary: 1,
+    Thomas: 2,
+    Julia: 3,
+    Robert: 4,
+    Ezekiel: 5,
+    Annabeth: 6,
+    Susie: 7,
+    Kris: 8
 }
 
 export default PlayerShip;
