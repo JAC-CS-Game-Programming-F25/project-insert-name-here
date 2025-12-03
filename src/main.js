@@ -22,7 +22,7 @@ import {
 	stateStack,
 } from './globals.js';
 import TitleScreenState from './states/game/TitleScreenState.js';
-
+import PlayState from './states/game/PlayState.js';
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;
@@ -32,21 +32,15 @@ canvas.setAttribute('tabindex', '1'); // Allows the canvas to receive user input
 // Now that the canvas element has been prepared, we can add it to the DOM.
 document.body.appendChild(canvas);
 
-const {
-	images: imageDefinitions,
-	fonts: fontDefinitions,
-	sounds: soundDefinitions,
-} = await fetch('./config/assets.json').then((response) => response.json());
+const assetDefinition = await fetch('./config/assets.json').then((response) => response.json());
 
 // Load all the assets from their definitions.
-images.load(imageDefinitions);
-fonts.load(fontDefinitions);
-sounds.load(soundDefinitions);
+images.load(assetDefinition.images);
+fonts.load(assetDefinition.fonts);
+sounds.load(assetDefinition.sounds);
 
 // Add all the states to the state machine.
-stateStack.push(new TitleScreenState());
-
-stateMachine.change(GameStateName.Play);
+stateStack.push(new PlayState());
 
 const game = new Game(
 	stateStack,

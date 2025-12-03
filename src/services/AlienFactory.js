@@ -1,4 +1,3 @@
-import Pokemon from "../entities/Pokemon.js";
 import AlienType from "../enums/AlienType.js";
 
 export default class AlienFactory {

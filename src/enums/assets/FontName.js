@@ -1,6 +1,6 @@
 const FontName = {
     Pixellari: 'Pixellari',
-    VerminVibes1989: 'VerminVibes1989',
+    Binary: 'Binary',
 }
 
 export default FontName;

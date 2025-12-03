@@ -13,3 +13,5 @@ const Colour = {
     Gold: 'gold',
     Silver: 'silver',
 }
+
+export default Colour;

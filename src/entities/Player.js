@@ -1,16 +1,27 @@
+import Animation from '../../lib/Animation.js';
 import Colour from '../enums/assets/ColorName.js'
 import Hitbox from '../../lib/Hitbox.js';
-import Vector from '../../lib/Vector';
+import Vector from '../../lib/Vector.js';
 import GameEntity from './GameEntity.js';
 import Sprite from '../../lib/Sprite.js'
 import ImageName from '../enums/assets/ImageName.js';
 import StateMachine from '../../lib/StateMachine.js';
-import { context, DEBUG, images, sounds, stateMachine, timer } from '../globals.js';
+import { 
+    context, 
+    DEBUG, 
+    images, 
+    sounds, 
+    timer, 
+    CANVAS_WIDTH, 
+    CANVAS_HEIGHT,
+    input
+} from '../globals.js';
 import PlayerStateName from '../enums/states/PlayerStateName.js';
 import PlayerIdleState from '../states/player/PlayerIdleState.js';
 import PlayerShootingState from '../states/player/PlayerShootingState.js';
 import PlayerDyingState from '../states/player/PlayerDyingState.js';
 import PlayerRevivingState from '../states/player/PlayerRevivingState.js';
+import Input from '../../lib/Input.js';
 
 
 export default class Player extends GameEntity {
@@ -19,17 +30,22 @@ export default class Player extends GameEntity {
     static BASE_FIRE_RATE = 0.5;
     static MAX_LIVES = 3;
 
-    constructor(shipType) {
-        super();
+    constructor(playState, shipType) {
+        super(playState = playState);
         
         this.shipType = shipType;
-        this.level = this.playstate.level;
+        //this.level = this.playstate.level;
         this.lives = Player.MAX_LIVES;
         this.fireRate = Player.BASE_FIRE_RATE;
-        this.angle = 0;
 
         this.shipSprites = Sprite.generateSpritesFromSpriteSheet(
-            images.get(ImageName.SpaceShips),
+            images.get(ImageName.Spaceships),
+            Player.WIDTH,
+            Player.HEIGHT
+        );
+
+        this.alienSprites = Sprite.generateSpritesFromSpriteSheet(
+            images.get(ImageName.Matriarch),
             Player.WIDTH,
             Player.HEIGHT
         );
@@ -41,7 +57,8 @@ export default class Player extends GameEntity {
         );
 
         this.sprites = this.shipSprites;
-        this.currentFrame = shipType;
+
+        this.currentAnimation = new Animation([shipType], 0);
 
         this.hitboxOffsets = new Hitbox(
             5,
@@ -50,20 +67,37 @@ export default class Player extends GameEntity {
             5
         );
 
-        this.position.x = Room.CENTER_X - Player.WIDTH / 2;
-		this.position.y = Room.CENTER_Y - Player.HEIGHT / 2;
+        this.position.x = (CANVAS_WIDTH / 2) - (Player.WIDTH / 2);
+		this.position.y = (CANVAS_HEIGHT / 2) - (Player.HEIGHT / 2);
 		this.dimensions.x = Player.WIDTH;
 		this.dimensions.y = Player.HEIGHT;
         this.alpha = 1;
         this.stateMachine = this.initializeStateMachine();
+        this.mousePosition = input.getMousePosition();
+    }
+
+    update(dt) {
+        this.mousePosition = input.getMousePosition();
+
+        this.angle = Math.atan2(
+            this.mousePosition.x - this.position.x,
+            -(this.mousePosition.y - this.position.y)
+        )
+
+        super.update(dt);
     }
 
     render() {
+        context.fillRect(this.position.x, this.position.y, this.dimensions.x, this.dimensions.y);
+
         context.save();
+        context.imageSmoothingEnabled = false;
 
 		context.globalAlpha = this.alpha;
+        context.translate(this.position.x + this.dimensions.x/2, this.position.y + this.dimensions.y/2);
+        context.rotate(this.angle);
 
-		super.render(this.positionOffset);
+		super.render({x: -this.position.x - this.dimensions.x/2, y: -this.position.y - this.dimensions.y/2});
 
 		context.restore();
     }

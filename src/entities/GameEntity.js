@@ -1,6 +1,7 @@
 import Colour from '../enums/assets/ColorName.js'
 import Hitbox from '../../lib/Hitbox.js';
-import Vector from '../../lib/Vector';
+import Vector from '../../lib/Vector.js';
+import { DEBUG } from '../globals.js';
 
 export default class GameEntity {
 	/**
@@ -28,6 +29,7 @@ export default class GameEntity {
         this.isDead = false;
 		this.cleanUp = false;
 		this.renderPriority = 0;
+		this.angle = 0;
 	}
 
 	/**

@@ -32,7 +32,7 @@ There will be three types of aliens that can appear throughout a play session, e
 
 In addition, there is a chance that upon an alien's defeat that the player gains one of the following power-ups (in which only one can be active at a time):
 
-- Rapid Fire: The player's fire-rate is temporily doubled for 5 seconds. Has a 5% chance of being obtained when an alien is defeated.
+- Rapid Fire: The player's fire-rate is temporily doubled for 6 seconds. Has a 5% chance of being obtained when an alien is defeated.
 - Shield: The player can be shielded from enemy contact once without losing a life. Has a 2% chance of being obtained when an alien is defeated.
 
 This implementation of _Astral Assault_ is a single player experience with an AI. The game is played primarily with the mouse to interact with the cards and general GUI. The players can optionally hit `P` on their keyboard to pause the game.
