@@ -6,6 +6,7 @@ const Colour = {
     Yellow: 'yellow',
     Green: 'green',
     Blue: 'blue',
+    NavyBlue: 'rgb(0, 51, 102)',
     Indigo: 'indigo',
     Purple: 'purple',
     HotPink: 'hotpink',

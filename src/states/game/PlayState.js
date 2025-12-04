@@ -2,7 +2,8 @@ import State from "../../../lib/State.js";
 import Vector from "../../../lib/Vector.js";
 import Player from "../../entities/Player.js"
 import ShipType from "../../enums/PlayerShip.js"
-import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../../globals.js";
+import { CANVAS_WIDTH, CANVAS_HEIGHT, context } from "../../globals.js";
+import GameBackground from "../../objects/Background.js";
 
 export default class PlayState extends State {
 	static RAPID_FIRE_CHANCE = 5;
@@ -14,6 +15,7 @@ export default class PlayState extends State {
 		
 		this.currentLevelValue = 1;
 		this.player = new Player(this, shipType);
+		this.background = new GameBackground();
 	}
 
 	update(dt) {
@@ -23,6 +25,7 @@ export default class PlayState extends State {
 	}
 
 	render() {
+		this.background.render();
 		this.player.render();
 		super.render();
 	}

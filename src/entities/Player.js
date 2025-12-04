@@ -78,18 +78,17 @@ export default class Player extends GameEntity {
 
     update(dt) {
         this.mousePosition = input.getMousePosition();
-
         this.angle = Math.atan2(
             this.mousePosition.x - this.position.x,
             -(this.mousePosition.y - this.position.y)
         )
 
+        this.checkForShooting();
+
         super.update(dt);
     }
 
     render() {
-        context.fillRect(this.position.x, this.position.y, this.dimensions.x, this.dimensions.y);
-
         context.save();
         context.imageSmoothingEnabled = false;
 
@@ -112,6 +111,12 @@ export default class Player extends GameEntity {
         stateMachine.change(PlayerStateName.Idle);
 
         return stateMachine;
+    }
+
+    checkForShooting() {
+        // if (input.isKeyPressed(Input.MOUSE.LEFT)) {
+        //     console.log("Shoot!");
+        // }
     }
 
     loseLife() {
