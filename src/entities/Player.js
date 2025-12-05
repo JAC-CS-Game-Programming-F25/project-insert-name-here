@@ -14,7 +14,8 @@ import {
     timer, 
     CANVAS_WIDTH, 
     CANVAS_HEIGHT,
-    input
+    input,
+    keys
 } from '../globals.js';
 import PlayerStateName from '../enums/states/PlayerStateName.js';
 import PlayerIdleState from '../states/player/PlayerIdleState.js';
@@ -22,7 +23,7 @@ import PlayerShootingState from '../states/player/PlayerShootingState.js';
 import PlayerDyingState from '../states/player/PlayerDyingState.js';
 import PlayerRevivingState from '../states/player/PlayerRevivingState.js';
 import Input from '../../lib/Input.js';
-
+import Bullet from './Bullet.js';
 
 export default class Player extends GameEntity {
     static WIDTH = 16;
@@ -33,6 +34,7 @@ export default class Player extends GameEntity {
     constructor(playState, shipType) {
         super(playState = playState);
         
+        this.playstate = playState;
         this.shipType = shipType;
         //this.level = this.playstate.level;
         this.lives = Player.MAX_LIVES;
@@ -60,20 +62,33 @@ export default class Player extends GameEntity {
 
         this.currentAnimation = new Animation([shipType], 0);
 
-        this.hitboxOffsets = new Hitbox(
-            5,
-            5,
-            5,
-            5
-        );
-
         this.position.x = (CANVAS_WIDTH / 2) - (Player.WIDTH / 2);
 		this.position.y = (CANVAS_HEIGHT / 2) - (Player.HEIGHT / 2);
 		this.dimensions.x = Player.WIDTH;
 		this.dimensions.y = Player.HEIGHT;
+
+        this.hitboxOffsets = new Hitbox(
+            4,
+            4,
+            -9,
+            -9
+        );
+        
+        this.hitbox = new Hitbox(
+            this.position.x + this.hitboxOffsets.position.x,
+            this.position.y + this.hitboxOffsets.position.y,
+            this.dimensions.x + this.hitboxOffsets.dimensions.x,
+            this.dimensions.y + this.hitboxOffsets.dimensions.y,
+        );
+
         this.alpha = 1;
         this.stateMachine = this.initializeStateMachine();
         this.mousePosition = input.getMousePosition();
+
+        console.log(this.hitbox.position.x);
+        console.log(this.hitbox.position.y);
+        console.log(this.hitbox.dimensions.x);
+        console.log(this.hitbox.dimensions.y);
     }
 
     update(dt) {
@@ -99,6 +114,10 @@ export default class Player extends GameEntity {
 		super.render({x: -this.position.x - this.dimensions.x/2, y: -this.position.y - this.dimensions.y/2});
 
 		context.restore();
+
+        if (DEBUG) {
+			this.hitbox.render(context);
+		}
     }
 
     initializeStateMachine() {
@@ -114,9 +133,14 @@ export default class Player extends GameEntity {
     }
 
     checkForShooting() {
-        // if (input.isKeyPressed(Input.MOUSE.LEFT)) {
-        //     console.log("Shoot!");
-        // }
+        if (input.isMouseButtonPressed(Input.MOUSE.LEFT)) {
+            console.log("Shoot!");
+            console.log(this.playstate);
+
+            let bullet = new Bullet(this.playstate, this)
+
+            this.playstate.pushNewEntity(bullet);
+        }
     }
 
     loseLife() {

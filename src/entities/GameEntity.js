@@ -1,7 +1,7 @@
 import Colour from '../enums/assets/ColorName.js'
 import Hitbox from '../../lib/Hitbox.js';
 import Vector from '../../lib/Vector.js';
-import { DEBUG } from '../globals.js';
+import { CANVAS_WIDTH, CANVAS_HEIGHT, context, DEBUG } from '../globals.js';
 
 export default class GameEntity {
 	/**
@@ -30,6 +30,7 @@ export default class GameEntity {
 		this.cleanUp = false;
 		this.renderPriority = 0;
 		this.angle = 0;
+		this.angleInDegrees = 0;
 	}
 
 	/**
@@ -44,6 +45,8 @@ export default class GameEntity {
 			this.dimensions.x + this.hitboxOffsets.dimensions.x,
 			this.dimensions.y + this.hitboxOffsets.dimensions.y,
 		);
+
+		this.didGoOffScreen();
 	}
 
 	render(offset = { x: 0, y: 0 }) {
@@ -52,14 +55,18 @@ export default class GameEntity {
 
 		this.stateMachine.render();
 		this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
-
-		if (DEBUG) {
-			this.hitbox.render(context);
-		}
 	}
 
 	changeState(state, params) {
 		this.stateMachine?.change(state, params);
+	}
+
+	didGoOffScreen() {
+		if (this.position.x < 0 || this.position.x > CANVAS_WIDTH || 
+			this.position.y < 0 || this.position.y > CANVAS_HEIGHT
+		) {
+			this.cleanUp = true;
+		}
 	}
 
     /**
