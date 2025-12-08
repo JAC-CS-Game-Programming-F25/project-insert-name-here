@@ -28,7 +28,7 @@ import BulletStateName from '../enums/states/BulletStateName.js';
 export default class Bullet extends GameEntity {
     static WIDTH = 5;
     static HEIGHT = 5;
-    static MAX_SPEED = 100;
+    static MAX_SPEED = 300;
 
     constructor(playState, player) {
         super(playState = playState);
@@ -41,7 +41,7 @@ export default class Bullet extends GameEntity {
 
         this.sprites = this.bulletSprites;
 
-        this.currentAnimation = new Animation([1], 0);
+        this.currentAnimation = new Animation([0], 0);
 
         this.player = player;
 
@@ -72,23 +72,25 @@ export default class Bullet extends GameEntity {
 
     update(dt) {
         this.updatePosition(dt);
-
-        console.log({x: this.position.x, y: this.position.y});
+        
+        if (!this.cleanUp) {
+            console.log({x: this.position.x, y: this.position.y});
+        }
 
         super.update(dt);
     }
 
     render() {
-        // context.save();
-        // context.imageSmoothingEnabled = false;
+        context.save();
+        context.imageSmoothingEnabled = false;
 
-		// context.globalAlpha = this.alpha;
-        // context.translate(this.position.x + this.dimensions.x/2, this.position.y + this.dimensions.y/2);
-        // context.rotate(this.angle);
+		context.globalAlpha = this.alpha;
+        context.translate(this.position.x + this.dimensions.x/2, this.position.y + this.dimensions.y/2);
+        context.rotate(this.angle);
 
-		// super.render({x: -this.position.x - this.dimensions.x/2, y: -this.position.y - this.dimensions.y/2});
+		super.render({x: -this.position.x - this.dimensions.x/2, y: -this.position.y - this.dimensions.y/2});
 
-		// context.restore();
+		context.restore();
 
         super.render(this.position.x, this.position.y);
 
@@ -107,7 +109,7 @@ export default class Bullet extends GameEntity {
     }
 
     calculateTrajectory() {
-        return new Vector(Math.sin(this.angle), Math.cos(this.angle));
+        return new Vector(Math.sin(this.angle), -Math.cos(this.angle));
     }
 
     updatePosition(dt) {

@@ -37,24 +37,28 @@ export default class GameEntity {
 	 * At this time, stateMachine will be null for Pokemon.
 	 */
 	update(dt) {
-		this.stateMachine.update(dt);
-		this.currentAnimation.update(dt);
-		this.hitbox.set(
-			this.position.x + this.hitboxOffsets.position.x,
-			this.position.y + this.hitboxOffsets.position.y,
-			this.dimensions.x + this.hitboxOffsets.dimensions.x,
-			this.dimensions.y + this.hitboxOffsets.dimensions.y,
-		);
+		if (!this.cleanUp) {
+			this.stateMachine.update(dt);
+			this.currentAnimation.update(dt);
+			this.hitbox.set(
+				this.position.x + this.hitboxOffsets.position.x,
+				this.position.y + this.hitboxOffsets.position.y,
+				this.dimensions.x + this.hitboxOffsets.dimensions.x,
+				this.dimensions.y + this.hitboxOffsets.dimensions.y,
+			);
 
-		this.didGoOffScreen();
+			this.didGoOffScreen();
+		}
 	}
 
 	render(offset = { x: 0, y: 0 }) {
-		const x = this.position.x + offset.x;
-		const y = this.position.y + offset.y;
+		if (!this.cleanUp) {
+			const x = this.position.x + offset.x;
+			const y = this.position.y + offset.y;
 
-		this.stateMachine.render();
-		this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
+			this.stateMachine.render();
+			this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
+		}
 	}
 
 	changeState(state, params) {
@@ -62,8 +66,8 @@ export default class GameEntity {
 	}
 
 	didGoOffScreen() {
-		if (this.position.x < 0 || this.position.x > CANVAS_WIDTH || 
-			this.position.y < 0 || this.position.y > CANVAS_HEIGHT
+		if (this.position.x < -10 || this.position.x > CANVAS_WIDTH + 10 && 
+			this.position.y < -10 || this.position.y > CANVAS_HEIGHT + 10
 		) {
 			this.cleanUp = true;
 		}

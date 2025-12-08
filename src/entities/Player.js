@@ -28,7 +28,7 @@ import Bullet from './Bullet.js';
 export default class Player extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
-    static BASE_FIRE_RATE = 0.5;
+    static BASE_FIRE_RATE = 0.3;
     static MAX_LIVES = 3;
 
     constructor(playState, shipType) {
@@ -85,6 +85,8 @@ export default class Player extends GameEntity {
         this.stateMachine = this.initializeStateMachine();
         this.mousePosition = input.getMousePosition();
 
+        this.fireTimer = 0;
+
         console.log(this.hitbox.position.x);
         console.log(this.hitbox.position.y);
         console.log(this.hitbox.dimensions.x);
@@ -97,6 +99,8 @@ export default class Player extends GameEntity {
             this.mousePosition.x - this.position.x,
             -(this.mousePosition.y - this.position.y)
         )
+
+        this.fireTimer -= dt;
 
         this.checkForShooting();
 
@@ -133,13 +137,15 @@ export default class Player extends GameEntity {
     }
 
     checkForShooting() {
-        if (input.isMouseButtonPressed(Input.MOUSE.LEFT)) {
+        if (input.isMouseButtonHeld(Input.MOUSE.LEFT) && this.fireTimer <= 0) {
             console.log("Shoot!");
             console.log(this.playstate);
 
             let bullet = new Bullet(this.playstate, this)
 
             this.playstate.pushNewEntity(bullet);
+
+            this.fireTimer = this.fireRate;
         }
     }
 

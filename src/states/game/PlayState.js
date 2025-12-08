@@ -27,7 +27,8 @@ export default class PlayState extends State {
 	update(dt) {
 		this.entities.forEach((entity) => {
 			entity.update(dt);
-		})
+			entity.didGoOffScreen();
+		});
 
 		this.cleanUpEntities();
 		
@@ -36,7 +37,11 @@ export default class PlayState extends State {
 
 	render() {
 		this.background.render();
-		this.player.render();
+
+		this.entities.forEach((entity) => {
+			entity.render();
+		});
+
 		super.render();
 	}
 
