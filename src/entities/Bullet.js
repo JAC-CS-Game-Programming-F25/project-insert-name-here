@@ -30,7 +30,7 @@ export default class Bullet extends GameEntity {
     static HEIGHT = 5;
     static MAX_SPEED = 300;
 
-    constructor(playState, player) {
+    constructor(playState, player, angle) {
         super(playState = playState);
 
         this.bulletSprites = Sprite.generateSpritesFromSpriteSheet(
@@ -59,7 +59,7 @@ export default class Bullet extends GameEntity {
 
         this.stateMachine = this.initializeStateMachine();
 
-        this.angle = this.player.angle;
+        this.angle = angle;
         this.trajectory = this.calculateTrajectory();
 
         this.speed = Bullet.MAX_SPEED;

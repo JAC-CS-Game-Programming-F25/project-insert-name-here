@@ -28,7 +28,7 @@ import Bullet from './Bullet.js';
 export default class Player extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
-    static BASE_FIRE_RATE = 0.3;
+    static BASE_FIRE_RATE = 0;
     static MAX_LIVES = 3;
 
     constructor(playState, shipType) {
@@ -141,9 +141,13 @@ export default class Player extends GameEntity {
             console.log("Shoot!");
             console.log(this.playstate);
 
-            let bullet = new Bullet(this.playstate, this)
+            let bullet = new Bullet(this.playstate, this, this.angle);
+            // let bullet2 = new Bullet(this.playstate, this, this.angle + 0.1);
+            // let bullet3 = new Bullet(this.playstate, this, this.angle - 0.1);
 
             this.playstate.pushNewEntity(bullet);
+            // this.playstate.pushNewEntity(bullet2);
+            // this.playstate.pushNewEntity(bullet3);
 
             this.fireTimer = this.fireRate;
         }
