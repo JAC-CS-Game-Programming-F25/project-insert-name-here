@@ -25,6 +25,8 @@ export default class PlayState extends State {
 	}
 
 	update(dt) {
+		// dt /= 2 (Literally how time dilation will work. Wahoo)
+
 		this.entities.forEach((entity) => {
 			entity.update(dt);
 			entity.didGoOffScreen();

@@ -344,6 +344,10 @@ Matriarchs are the most difficult alien to destroy as after a certain period of 
 
 Time appears to slow down for 5 seconds, with enemy and player-bullet speeds decreasing to 25% of their original value. Has a 0.5% chance of being obtained when an alien is defeated.
 
+### Minor: Fourth Power-Up - Bullet Spread (NEW)
+
+For 7 seconds, bullets are fired in triplets in a fan-like formation. Has a 3% chance of being obtained when an alien is defeated.
+
 ### Major: Boss Fight
 
 A special boss fight would be added to occur at every 5th level, where the playstyle suddenly changes to mimic _Space Invaders_ as you fight against a much larger alien with various attacks and its own health pool.

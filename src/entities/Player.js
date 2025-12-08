@@ -142,7 +142,7 @@ export default class Player extends GameEntity {
             console.log(this.playstate);
 
             let bullet = new Bullet(this.playstate, this, this.angle);
-            // let bullet2 = new Bullet(this.playstate, this, this.angle + 0.1);
+            // let bullet2 = new Bullet(this.playstate, this, this.angle + 0.1); (Bullet-spread power-up stuff. Hell yeah)
             // let bullet3 = new Bullet(this.playstate, this, this.angle - 0.1);
 
             this.playstate.pushNewEntity(bullet);
