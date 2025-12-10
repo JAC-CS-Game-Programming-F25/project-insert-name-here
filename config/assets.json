@@ -1,22 +1,10 @@
 {
 	"images": [
 		{
-			"name": "pawn",
-			"path": "../assets/images/sprites/aliens/pawn.png",
-			"width": 256,
-			"height": 256
-		},
-		{
-			"name": "scion",
-			"path": "../assets/images/sprites/aliens/scion.png",
-			"width": 256,
-			"height": 256
-		},
-		{
-			"name": "matriarch",
-			"path": "../assets/images/sprites/aliens/matriarch.png",
-			"width": 256,
-			"height": 256
+			"name": "aliens",
+			"path": "../assets/images/sprites/aliens/aliens.png",
+			"width": 48,
+			"height": 16
 		},
 		{
 			"name": "water-effect-and-bullet-16x16",

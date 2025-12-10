@@ -46,21 +46,17 @@ export default class Player extends GameEntity {
             Player.HEIGHT
         );
 
-        this.alienSprites = Sprite.generateSpritesFromSpriteSheet(
-            images.get(ImageName.Matriarch),
-            Player.WIDTH,
-            Player.HEIGHT
-        );
-
         this.orangeEffectSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.OrangeEffects),
             Player.WIDTH,
             Player.HEIGHT
         );
 
-        this.sprites = this.shipSprites;
+        this.idleAnimation = new Animation([shipType], 0);
+        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 0);
 
-        this.currentAnimation = new Animation([shipType], 0);
+        this.sprites = this.shipSprites;
+        this.currentAnimation = this.idleAnimation;
 
         this.position.x = (CANVAS_WIDTH / 2) - (Player.WIDTH / 2);
 		this.position.y = (CANVAS_HEIGHT / 2) - (Player.HEIGHT / 2);
@@ -99,6 +95,8 @@ export default class Player extends GameEntity {
             this.mousePosition.x - this.position.x,
             -(this.mousePosition.y - this.position.y)
         ) - Math.PI;
+        // NOTE: Due to the angle being measured in radians, you can flip it by adding or subtracting pi.
+        // This allow for aiming the ship from the back.
 
         this.fireTimer -= dt;
 

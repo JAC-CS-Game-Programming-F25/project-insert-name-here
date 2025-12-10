@@ -66,18 +66,18 @@ export default class GameEntity {
 	}
 
 	didGoOffScreen() {
-		if (this.position.x < -10 || this.position.x > CANVAS_WIDTH + 10 && 
-			this.position.y < -10 || this.position.y > CANVAS_HEIGHT + 10
+		if (this.position.x < -30 || this.position.x > CANVAS_WIDTH + 30 && 
+			this.position.y < -30 || this.position.y > CANVAS_HEIGHT + 30
 		) {
 			this.cleanUp = true;
 		}
 	}
 
     /**
-	 * @param {Hitbox} hitbox
-	 * @returns Whether this hitbox collided with another using AABB collision detection.
+	 * @param {GameEntity} entity
+	 * @returns Whether this entity's hitbox collided with another using AABB collision detection.
 	 */
-	didCollideWithEntity(hitbox) {
-		return this.hitbox.didCollide(hitbox);
+	didCollideWithEntity(entity) {
+		return this.hitbox.didCollide(entity.hitbox);
 	}
 }

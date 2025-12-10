@@ -1,5 +1,7 @@
 import State from "../../../lib/State.js";
 import Vector from "../../../lib/Vector.js";
+import Alien from "../../entities/aliens/Alien.js";
+import Bullet from "../../entities/Bullet.js";
 import GameEntity from "../../entities/GameEntity.js";
 import Player from "../../entities/Player.js"
 import ShipType from "../../enums/PlayerShip.js"
@@ -17,9 +19,11 @@ export default class PlayState extends State {
 		this.currentLevelValue = 1;
 
 		this.player = new Player(this, shipType);
+		this.alien = new Alien(this, this.player.angle);
 
 		this.entities = [];
 		this.entities.push(this.player);
+		this.entities.push(this.alien);
 
 		this.background = new GameBackground();
 	}
@@ -29,7 +33,10 @@ export default class PlayState extends State {
 
 		this.entities.forEach((entity) => {
 			entity.update(dt);
-			entity.didGoOffScreen();
+
+			if (!(entity instanceof Alien)) {
+				entity.didGoOffScreen();
+			}
 		});
 
 		this.cleanUpEntities();

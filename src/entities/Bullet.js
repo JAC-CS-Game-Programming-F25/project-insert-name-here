@@ -28,7 +28,7 @@ import BulletStateName from '../enums/states/BulletStateName.js';
 export default class Bullet extends GameEntity {
     static WIDTH = 5;
     static HEIGHT = 5;
-    static MAX_SPEED = 300;
+    static MAX_SPEED = 250;
 
     constructor(playState, player, angle) {
         super(playState = playState);
@@ -67,7 +67,7 @@ export default class Bullet extends GameEntity {
         this.alpha = 1;
         this.mousePosition = input.getMousePosition();
 
-        console.log(this.trajectory);
+        //console.log(this.trajectory);
     }
 
     update(dt) {
