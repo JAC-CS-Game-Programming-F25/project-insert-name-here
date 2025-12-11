@@ -53,13 +53,13 @@ export default class Player extends GameEntity {
         );
 
         this.idleAnimation = new Animation([shipType], 0);
-        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 0);
+        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 1);
 
         this.sprites = this.shipSprites;
         this.currentAnimation = this.idleAnimation;
 
-        this.position.x = (CANVAS_WIDTH / 2) - (Player.WIDTH / 2);
-		this.position.y = (CANVAS_HEIGHT / 2) - (Player.HEIGHT / 2);
+        this.position = new Vector((CANVAS_WIDTH / 2) - (Player.WIDTH / 2), (CANVAS_HEIGHT / 2) - (Player.HEIGHT / 2));
+
 		this.dimensions.x = Player.WIDTH;
 		this.dimensions.y = Player.HEIGHT;
 
@@ -77,19 +77,21 @@ export default class Player extends GameEntity {
             this.dimensions.y + this.hitboxOffsets.dimensions.y,
         );
 
+        this.renderPriority = 1;
+
         this.alpha = 1;
         this.stateMachine = this.initializeStateMachine();
         this.mousePosition = input.getMousePosition();
 
         this.fireTimer = 0;
 
-        console.log(this.hitbox.position.x);
-        console.log(this.hitbox.position.y);
-        console.log(this.hitbox.dimensions.x);
-        console.log(this.hitbox.dimensions.y);
+        // console.log(this.hitbox.position.x);
+        // console.log(this.hitbox.position.y);
+        // console.log(this.hitbox.dimensions.x);
+        // console.log(this.hitbox.dimensions.y);
     }
 
-    update(dt) {
+    update(dt) {        
         this.mousePosition = input.getMousePosition();
         this.angle = Math.atan2(
             this.mousePosition.x - this.position.x,

@@ -26,13 +26,14 @@ import { didSucceedPercentChance, getRandomPositiveInteger } from '../../../lib/
 export default class Alien extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
-    static MAX_SPEED = 50;
+    static MAX_SPEED = 40;
 
-    constructor(playState, angle) {
+    constructor(playState) {
         super(playState = playState);
         
         this.playstate = playState;
-        //this.level = this.playstate.level;
+
+        this.isActive = false;
 
         this.alienSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.Aliens),
@@ -60,8 +61,8 @@ export default class Alien extends GameEntity {
         this.hitboxOffsets = new Hitbox(
             4,
             4,
-            -9,
-            -9
+            -6,
+            -6
         );
         
         this.hitbox = new Hitbox(
@@ -71,9 +72,11 @@ export default class Alien extends GameEntity {
             this.dimensions.y + this.hitboxOffsets.dimensions.y,
         );
 
+        this.renderPriority = 2;
+
         this.stateMachine = this.initializeStateMachine();
 
-        this.playerPosition = this.playstate.player.position
+        this.playerPosition = this.playstate.player.position;
 
         this.angle = Math.atan2(
             this.playerPosition.x - this.position.x,
@@ -88,7 +91,9 @@ export default class Alien extends GameEntity {
     }
 
     update(dt) {
-        this.updatePosition(dt);
+        if (this.isActive) {
+            this.updatePosition(dt);
+        }
 
         super.update(dt);
     }
@@ -121,21 +126,18 @@ export default class Alien extends GameEntity {
     }
 
     initializePosition() { 
-        if (didSucceedPercentChance(50)) {
-            if (didSucceedPercentChance(50)) {
-                return new Vector(-20, getRandomPositiveInteger(0, CANVAS_HEIGHT));
-            }
-            else {
-                return new Vector(CANVAS_WIDTH + 20, getRandomPositiveInteger(0, CANVAS_HEIGHT));
-            }
-        }
-        else {
-            if (didSucceedPercentChance(50)) {
-                return new Vector(getRandomPositiveInteger(0, CANVAS_WIDTH), -20);
-            }
-            else {
-                return new Vector(getRandomPositiveInteger(0, CANVAS_WIDTH), CANVAS_HEIGHT + 20);
-            }
+        let spawnPosition = getRandomPositiveInteger(1,4);
+
+        if (spawnPosition === 1) {
+            return new Vector(-20, getRandomPositiveInteger(0, CANVAS_HEIGHT));
+        } else if (spawnPosition === 2) {
+            return new Vector(CANVAS_WIDTH + 20, getRandomPositiveInteger(0, CANVAS_HEIGHT));
+        } else if (spawnPosition === 3) {
+            return new Vector(getRandomPositiveInteger(0, CANVAS_WIDTH), -20);
+        } else if (spawnPosition === 4) {
+            return new Vector(getRandomPositiveInteger(0, CANVAS_WIDTH), CANVAS_HEIGHT + 20);
+        } else {
+            return new Vector(-20, getRandomPositiveInteger(0, CANVAS_HEIGHT));
         }
     }
 
@@ -147,6 +149,14 @@ export default class Alien extends GameEntity {
         this.position.x += this.trajectory.x * (this.speed * dt);
         this.position.y += this.trajectory.y * (this.speed * dt);
 
-        console.log(this.position);
+        //console.log(this.position);
     }
+
+    /**
+	 * @param {GameEntity} entity
+	 * @returns Whether this entity's hitbox collided with another using AABB collision detection.
+	 */
+	didCollideWithEntity(entity) {
+        return this.hitbox.didCollide(entity.hitbox);
+	}
 }

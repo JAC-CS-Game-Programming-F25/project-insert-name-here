@@ -37,28 +37,24 @@ export default class GameEntity {
 	 * At this time, stateMachine will be null for Pokemon.
 	 */
 	update(dt) {
-		if (!this.cleanUp) {
-			this.stateMachine.update(dt);
-			this.currentAnimation.update(dt);
-			this.hitbox.set(
-				this.position.x + this.hitboxOffsets.position.x,
-				this.position.y + this.hitboxOffsets.position.y,
-				this.dimensions.x + this.hitboxOffsets.dimensions.x,
-				this.dimensions.y + this.hitboxOffsets.dimensions.y,
-			);
+		this.stateMachine.update(dt);
+		this.currentAnimation.update(dt);
+		this.hitbox.set(
+			this.position.x + this.hitboxOffsets.position.x,
+			this.position.y + this.hitboxOffsets.position.y,
+			this.dimensions.x + this.hitboxOffsets.dimensions.x,
+			this.dimensions.y + this.hitboxOffsets.dimensions.y,
+		);
 
-			this.didGoOffScreen();
-		}
+		this.didGoOffScreen();
 	}
 
 	render(offset = { x: 0, y: 0 }) {
-		if (!this.cleanUp) {
-			const x = this.position.x + offset.x;
-			const y = this.position.y + offset.y;
+		const x = this.position.x + offset.x;
+		const y = this.position.y + offset.y;
 
-			this.stateMachine.render();
-			this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
-		}
+		this.stateMachine.render();
+		this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
 	}
 
 	changeState(state, params) {

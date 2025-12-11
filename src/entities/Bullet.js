@@ -57,6 +57,8 @@ export default class Bullet extends GameEntity {
             this.dimensions.y
         );
 
+        this.renderPriority = 3;
+
         this.stateMachine = this.initializeStateMachine();
 
         this.angle = angle;
@@ -73,9 +75,9 @@ export default class Bullet extends GameEntity {
     update(dt) {
         this.updatePosition(dt);
         
-        if (!this.cleanUp) {
-            console.log({x: this.position.x, y: this.position.y});
-        }
+        // if (!this.cleanUp) {
+        //     console.log({x: this.position.x, y: this.position.y});
+        // }
 
         super.update(dt);
     }
