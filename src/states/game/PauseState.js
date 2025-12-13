@@ -29,9 +29,15 @@ export default class PauseState extends State {
 		context.textAlign = 'center';
 		context.fillStyle = Colour.White;
 		context.fillText('Press \'ESCAPE\' to resume playing.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 20);
+		context.fillText('Press \'ENTER\' to leave game.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 35);
 	}
 
 	checkForPlay() {
+		if (input.isKeyPressed(Input.KEYS.ENTER)) {
+			stateStack.pop();
+			stateStack.pop();
+			stateStack.pop();
+		}
 		if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
 			stateStack.pop();
 		}

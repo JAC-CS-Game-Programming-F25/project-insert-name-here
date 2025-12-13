@@ -23,12 +23,13 @@ export default class PlayState extends State {
 	static BASE_GAME_SPEED = 1;
 	static TIME_DILATION_GAME_SPEED = 0.5;
 	
-	constructor(shipType = ShipType.Susie, background = new GameBackground()) {
+	constructor(shipType, background = new GameBackground()) {
 		super();
 		
 		this.currentLevelValue = 1;
 
-		this.player = new Player(this, shipType);
+		this.shipType = shipType
+		this.player = new Player(this, this.shipType);
 		this.alien = new Alien(this, this.player.angle);
 
 		this.currentlevel = new Level(this, this.currentLevelValue);
@@ -69,8 +70,6 @@ export default class PlayState extends State {
 
 		this.background.update(dt);
 
-		this.currentlevel.update(dt);
-
 		this.entities.forEach((entity) => {
 			if (entity instanceof Player) {
 				entity.update(base_dt);
@@ -87,6 +86,8 @@ export default class PlayState extends State {
 				this.currentlevel.currentHorde.manageCollisions(alien, entity)
 			});
 		});
+
+		this.currentlevel.update(dt);
 
 		this.cleanUpEntities();
 
@@ -108,8 +109,6 @@ export default class PlayState extends State {
 		this.background.render();
 
 		this.entities.forEach((entity) => {
-
-
 			entity.render();
 		});
 

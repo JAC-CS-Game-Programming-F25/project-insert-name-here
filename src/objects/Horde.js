@@ -71,7 +71,7 @@ export default class Horde {
 
     manageCollisions(alien, entity) {
         if (alien.didCollideWithEntity(entity) && entity instanceof Bullet) {
-            alien.cleanUp = true;
+            alien.isDead = true;
             entity.cleanUp = true;
 
             this.increaseScore();
@@ -81,8 +81,12 @@ export default class Horde {
             }
         }
         else if (alien.didCollideWithEntity(entity) && entity instanceof Player) {
-            alien.cleanUp = true;
-            entity.loseLife();
+            alien.isDead = true;
+            entity.isDead = true;
+
+            if (alien.cleanUp) {
+                entity.loseLife();
+            }
         }
     }
 
@@ -91,13 +95,13 @@ export default class Horde {
     }
 
     rollForAbility() {
-        if (didSucceedPercentChance(0.5)) {
+        if (didSucceedPercentChance(0.05)) {
             this.playState.activateRapidFire();
         }
-        else if (didSucceedPercentChance(0.3)) {
+        else if (didSucceedPercentChance(0.03)) {
             this.playState.activateBulletSpread();
         }
-        else if (didSucceedPercentChance(0.05)) {
+        else if (didSucceedPercentChance(0.005)) {
             this.playState.activateTimeDilation();
         }
     }

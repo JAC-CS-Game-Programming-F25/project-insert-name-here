@@ -19,11 +19,11 @@ import {
 } from '../globals.js';
 import PlayerStateName from '../enums/states/PlayerStateName.js';
 import PlayerIdleState from '../states/player/PlayerIdleState.js';
-import PlayerShootingState from '../states/player/PlayerShootingState.js';
 import PlayerDyingState from '../states/player/PlayerDyingState.js';
 import PlayerRevivingState from '../states/player/PlayerRevivingState.js';
 import Input from '../../lib/Input.js';
 import Bullet from './Bullet.js';
+import BulletType from '../enums/BulletType.js';
 
 export default class Player extends GameEntity {
     static WIDTH = 16;
@@ -36,9 +36,12 @@ export default class Player extends GameEntity {
         
         this.playstate = playState;
         this.shipType = shipType;
-        //this.level = this.playstate.level;
         this.lives = Player.MAX_LIVES;
         this.fireRate = Player.BASE_FIRE_RATE;
+
+        this.isHittable = true;
+
+        this.isDead = false;
 
         this.shipSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.Spaceships),
@@ -54,6 +57,7 @@ export default class Player extends GameEntity {
 
         this.idleAnimation = new Animation([shipType], 0);
         this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 1);
+        this.revivingAnimation = new Animation([143,142,141,140,139], 0.1, 1);
 
         this.sprites = this.shipSprites;
         this.currentAnimation = this.idleAnimation;
@@ -93,24 +97,6 @@ export default class Player extends GameEntity {
         // console.log(this.hitbox.dimensions.y);
     }
 
-    update(dt) {        
-        this.checkForGameOver();
-        
-        this.mousePosition = input.getMousePosition();
-        this.angle = Math.atan2(
-            this.mousePosition.x - this.position.x,
-            -(this.mousePosition.y - this.position.y)
-        ) - Math.PI;
-        // NOTE: Due to the angle being measured in radians, you can flip it by adding or subtracting pi.
-        // This allow for aiming the ship from the back.
-
-        this.fireTimer -= dt;
-
-        this.checkForShooting();
-
-        super.update(dt);
-    }
-
     render() {
         context.save();
         context.filter = 'grayscale(0%)';
@@ -132,54 +118,12 @@ export default class Player extends GameEntity {
     initializeStateMachine() {
         const stateMachine = new StateMachine();
 
-        stateMachine.add(PlayerStateName.Idle, new PlayerIdleState());
-        stateMachine.add(PlayerStateName.Shooting, new PlayerShootingState());
-        stateMachine.add(PlayerStateName.Dying, new PlayerDyingState());
-        stateMachine.add(PlayerStateName.Reviving, new PlayerRevivingState());
+        stateMachine.add(PlayerStateName.Idle, new PlayerIdleState(this, this.playstate, this.idleAnimation));
+        stateMachine.add(PlayerStateName.Dying, new PlayerDyingState(this, this.dyingAnimation));
+        stateMachine.add(PlayerStateName.Reviving, new PlayerRevivingState(this, this.revivingAnimation));
         stateMachine.change(PlayerStateName.Idle);
 
         return stateMachine;
-    }
-
-    checkForShooting() {
-        if (input.isMouseButtonHeld(Input.MOUSE.LEFT) && this.fireTimer <= 0) {
-            console.log("Shoot!");
-            console.log(this.playstate);
-
-            let bullet = new Bullet(this.playstate, this, this.angle);
-            this.playstate.pushNewEntity(bullet);
-            
-            if (this.isBulletSpreadActive) {
-                // (Bullet-spread power-up stuff. Hell yeah)
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle + 0.3)); 
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle - 0.3));
-            }
-
-            if (this.isBulletSpreadActive) {
-                // (Bullet-spread power-up stuff. Hell yeah)
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle + 0.3)); 
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle - 0.3));
-            }
-            else if (this.fireRate != Player.BASE_FIRE_RATE) {
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
-            }
-            else if (this.playstate.isTimeDilationActive) {
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
-            }
-
-            this.fireTimer = this.fireRate;
-        }
-    }
-
-    checkForGameOver() {
-        if (this.lives <= 0) {
-            this.cleanUp = true;
-        }
-    }
-
-    loseLife() {
-        this.lives--;
     }
 
     activateRapidFire() {

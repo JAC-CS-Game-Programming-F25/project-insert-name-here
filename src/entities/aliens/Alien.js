@@ -35,6 +35,10 @@ export default class Alien extends GameEntity {
 
         this.isActive = false;
 
+        this.isHittable = false;
+
+        this.isDead = false;
+
         this.alienSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.Aliens),
             Alien.WIDTH,
@@ -48,7 +52,7 @@ export default class Alien extends GameEntity {
         );
 
         this.idleAnimation = new Animation([0], 0);
-        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1);
+        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 1);
 
         this.sprites = this.alienSprites;
         this.currentAnimation = this.idleAnimation;
@@ -90,12 +94,15 @@ export default class Alien extends GameEntity {
         this.alpha = 1;
     }
 
-    update(dt) {
-        if (this.isActive) {
-            this.updatePosition(dt);
+    updatePosition(dt) {
+        this.position.x += this.trajectory.x * (this.speed * dt);
+        this.position.y += this.trajectory.y * (this.speed * dt);
+
+        if (!this.didGoOffScreen()) {
+            this.isHittable = true;
         }
 
-        super.update(dt);
+        //console.log(this.position);
     }
 
     render() {
@@ -118,8 +125,8 @@ export default class Alien extends GameEntity {
     initializeStateMachine() {
         const stateMachine = new StateMachine();
 
-        stateMachine.add(AlienStateName.Idle, new AlienIdleState());
-        stateMachine.add(AlienStateName.Dying, new AlienDyingState());
+        stateMachine.add(AlienStateName.Idle, new AlienIdleState(this, this.idleAnimation));
+        stateMachine.add(AlienStateName.Dying, new AlienDyingState(this, this.dyingAnimation));
         stateMachine.change(AlienStateName.Idle);
 
         return stateMachine;
@@ -145,18 +152,15 @@ export default class Alien extends GameEntity {
         return new Vector(Math.sin(this.angle), -Math.cos(this.angle));
     }
 
-    updatePosition(dt) {
-        this.position.x += this.trajectory.x * (this.speed * dt);
-        this.position.y += this.trajectory.y * (this.speed * dt);
-
-        //console.log(this.position);
-    }
-
     /**
 	 * @param {GameEntity} entity
 	 * @returns Whether this entity's hitbox collided with another using AABB collision detection.
 	 */
 	didCollideWithEntity(entity) {
-        return this.hitbox.didCollide(entity.hitbox);
+        if (this.isHittable) {
+            return this.hitbox.didCollide(entity.hitbox);
+        }
+
+        return false;
 	}
 }

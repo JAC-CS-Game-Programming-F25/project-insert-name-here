@@ -33,11 +33,11 @@ export default class GameEntity {
 		this.angleInDegrees = 0;
 	}
 
-	/**
-	 * At this time, stateMachine will be null for Pokemon.
-	 */
 	update(dt) {
-		this.stateMachine.update(dt);
+		if (this.stateMachine != null) {
+			this.stateMachine.update(dt);
+		}
+
 		this.currentAnimation.update(dt);
 		this.hitbox.set(
 			this.position.x + this.hitboxOffsets.position.x,
@@ -53,7 +53,10 @@ export default class GameEntity {
 		const x = this.position.x + offset.x;
 		const y = this.position.y + offset.y;
 
-		this.stateMachine.render();
+		if (this.stateMachine != null) {
+			this.stateMachine.render();
+		}
+
 		this.sprites[this.currentAnimation.getCurrentFrame()].render(Math.floor(x), Math.floor(y));
 	}
 

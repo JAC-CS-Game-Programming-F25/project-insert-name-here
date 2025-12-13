@@ -1,11 +1,9 @@
 import Animation from '../../lib/Animation.js';
-import Colour from '../enums/assets/ColorName.js'
 import Hitbox from '../../lib/Hitbox.js';
 import Vector from '../../lib/Vector.js';
 import GameEntity from './GameEntity.js';
 import Sprite from '../../lib/Sprite.js'
 import ImageName from '../enums/assets/ImageName.js';
-import StateMachine from '../../lib/StateMachine.js';
 import { 
     context, 
     DEBUG, 
@@ -15,23 +13,14 @@ import {
     CANVAS_WIDTH, 
     CANVAS_HEIGHT,
     input,
-    keys
 } from '../globals.js';
-import PlayerStateName from '../enums/states/PlayerStateName.js';
-import PlayerIdleState from '../states/player/PlayerIdleState.js';
-import PlayerShootingState from '../states/player/PlayerShootingState.js';
-import PlayerDyingState from '../states/player/PlayerDyingState.js';
-import PlayerRevivingState from '../states/player/PlayerRevivingState.js';
-import Input from '../../lib/Input.js';
-import BulletStateName from '../enums/states/BulletStateName.js';
-import BulletType from '../enums/';
 
 export default class Bullet extends GameEntity {
     static WIDTH = 5;
     static HEIGHT = 5;
     static MAX_SPEED = 250;
 
-    constructor(playState, player, angle) {
+    constructor(playState, angle, bulletType = 1) {
         super(playState = playState);
 
         this.bulletSprites = Sprite.generateSpritesFromSpriteSheet(
@@ -40,11 +29,11 @@ export default class Bullet extends GameEntity {
             Bullet.HEIGHT
         );
 
+        this.bulletType = bulletType;
+
         this.sprites = this.bulletSprites;
 
-        this.currentAnimation = new Animation([0], 0);
-
-        this.player = player;
+        this.currentAnimation = new Animation([bulletType], 0);
 
         this.position.x = (CANVAS_WIDTH / 2) - (Bullet.WIDTH / 2);
 		this.position.y = (CANVAS_HEIGHT / 2) - (Bullet.HEIGHT / 2);
@@ -60,8 +49,6 @@ export default class Bullet extends GameEntity {
 
         this.renderPriority = 3;
 
-        this.stateMachine = this.initializeStateMachine();
-
         this.angle = angle;
         this.trajectory = this.calculateTrajectory();
 
@@ -75,10 +62,6 @@ export default class Bullet extends GameEntity {
 
     update(dt) {
         this.updatePosition(dt);
-        
-        // if (!this.cleanUp) {
-        //     console.log({x: this.position.x, y: this.position.y});
-        // }
 
         super.update(dt);
     }
@@ -100,15 +83,6 @@ export default class Bullet extends GameEntity {
         if (DEBUG) {
 			this.hitbox.render(context);
 		}
-    }
-
-    initializeStateMachine() {
-        const stateMachine = new StateMachine();
-
-        stateMachine.add(BulletStateName.Idle, new PlayerIdleState());
-        stateMachine.change(BulletStateName.Idle);
-
-        return stateMachine;
     }
 
     calculateTrajectory() {
