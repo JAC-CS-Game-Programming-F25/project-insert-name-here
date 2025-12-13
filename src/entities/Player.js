@@ -155,6 +155,19 @@ export default class Player extends GameEntity {
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle - 0.3));
             }
 
+            if (this.isBulletSpreadActive) {
+                // (Bullet-spread power-up stuff. Hell yeah)
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle + 0.3)); 
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle - 0.3));
+            }
+            else if (this.fireRate != Player.BASE_FIRE_RATE) {
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
+            }
+            else if (this.playstate.isTimeDilationActive) {
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle));
+            }
+
             this.fireTimer = this.fireRate;
         }
     }

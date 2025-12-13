@@ -2,7 +2,7 @@ const PlayerShipNames = {
     0: 'John',
     1: 'Mary',
     2: 'Thomas',
-    3: 'Julia',
+    3: 'Julio',
     4: 'Robert',
     5: 'Ezekiel',
     6: 'Annabeth',

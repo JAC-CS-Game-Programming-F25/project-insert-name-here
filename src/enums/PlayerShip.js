@@ -2,7 +2,7 @@ const PlayerShip = {
     John: 0,
     Mary: 1,
     Thomas: 2,
-    Julia: 3,
+    Julio: 3,
     Robert: 4,
     Ezekiel: 5,
     Annabeth: 6,

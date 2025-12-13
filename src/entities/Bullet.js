@@ -24,6 +24,7 @@ import PlayerDyingState from '../states/player/PlayerDyingState.js';
 import PlayerRevivingState from '../states/player/PlayerRevivingState.js';
 import Input from '../../lib/Input.js';
 import BulletStateName from '../enums/states/BulletStateName.js';
+import BulletType from '../enums/';
 
 export default class Bullet extends GameEntity {
     static WIDTH = 5;
