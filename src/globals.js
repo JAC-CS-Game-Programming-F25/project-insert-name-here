@@ -42,4 +42,4 @@ export const sounds = new Sounds();
 export const alienFactory = new AlienFactory();
 
 // If true, render all hitboxes.
-export const DEBUG = true;
+export const DEBUG = false;

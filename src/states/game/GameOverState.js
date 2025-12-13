@@ -6,9 +6,10 @@ import FontName from "../../enums/assets/FontName.js"
 import Colour from "../../enums/assets/ColorName.js"
 
 export default class GameOverState extends State {
-	constructor(background) {
+	constructor(shipType, background) {
 		super();
 
+		this.shipType = shipType;
 		this.background = background;
 	}
 
@@ -22,18 +23,23 @@ export default class GameOverState extends State {
 		context.font = `30px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
 		context.fillStyle = Colour.Red;
-		context.fillText('GAME OVER', CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+		context.fillText('GAME OVER', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 - 10);
 
 		context.font = `15px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
 		context.fillStyle = Colour.Red;
-		context.fillText('Press \'ENTER\' to play again.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 20);
+		context.fillText('Press \'ENTER\' to play again.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
+		context.fillText('Press \'ESCAPE\' to return to title screen.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 25, 175);
 	}
 
 	checkForNewGame() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
 			stateStack.pop();
-			stateStack.push(new PlayState());
+			stateStack.push(new PlayState(this.shipType, this.background))
+		}
+		else if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
+			stateStack.pop();
+			stateStack.pop();
 		}
 	}
 }

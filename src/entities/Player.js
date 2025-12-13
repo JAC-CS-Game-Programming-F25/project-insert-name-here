@@ -85,6 +85,8 @@ export default class Player extends GameEntity {
 
         this.fireTimer = 0;
 
+        this.isBulletSpreadActive = false;
+
         // console.log(this.hitbox.position.x);
         // console.log(this.hitbox.position.y);
         // console.log(this.hitbox.dimensions.x);
@@ -92,6 +94,8 @@ export default class Player extends GameEntity {
     }
 
     update(dt) {        
+        this.checkForGameOver();
+        
         this.mousePosition = input.getMousePosition();
         this.angle = Math.atan2(
             this.mousePosition.x - this.position.x,
@@ -109,6 +113,7 @@ export default class Player extends GameEntity {
 
     render() {
         context.save();
+        context.filter = 'grayscale(0%)';
         context.imageSmoothingEnabled = false;
 
 		context.globalAlpha = this.alpha;
@@ -142,20 +147,38 @@ export default class Player extends GameEntity {
             console.log(this.playstate);
 
             let bullet = new Bullet(this.playstate, this, this.angle);
-
-            // (Bullet-spread power-up stuff. Hell yeah)
-            // let bullet2 = new Bullet(this.playstate, this, this.angle + 0.1); 
-            // let bullet3 = new Bullet(this.playstate, this, this.angle - 0.1);
-
             this.playstate.pushNewEntity(bullet);
-            // this.playstate.pushNewEntity(bullet2);
-            // this.playstate.pushNewEntity(bullet3);
+            
+            if (this.isBulletSpreadActive) {
+                // (Bullet-spread power-up stuff. Hell yeah)
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle + 0.3)); 
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this, this.angle - 0.3));
+            }
 
             this.fireTimer = this.fireRate;
         }
     }
 
+    checkForGameOver() {
+        if (this.lives <= 0) {
+            this.cleanUp = true;
+        }
+    }
+
     loseLife() {
         this.lives--;
+    }
+
+    activateRapidFire() {
+        this.fireRate = Player.BASE_FIRE_RATE/2;
+    }
+
+    activateBulletSpread() {
+        this.isBulletSpreadActive = true;
+    }
+
+    deactivatePlayerAbilities() {
+        this.fireRate = Player.BASE_FIRE_RATE;
+        this.isBulletSpreadActive = false;
     }
 }

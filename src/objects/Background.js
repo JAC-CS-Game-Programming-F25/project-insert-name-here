@@ -6,11 +6,14 @@ import Star from "./Star.js";
 export default class GameBackground {
     static MIN_STARS = 30;
     static MAX_STARS = 50;
-    
+    static BASE_STAR_SPEED = 20;
+    static FAST_STAR_SPEED = 700;
+
     constructor() {
         this.count = getRandomPositiveInteger(GameBackground.MIN_STARS, GameBackground.MAX_STARS);
         
         this.stars = this.initializeStars(this.count);
+        this.starSpeed = GameBackground.BASE_STAR_SPEED;
     }
 
     initializeStars() {
@@ -21,6 +24,17 @@ export default class GameBackground {
         }
 
         return stars;
+    }
+
+    update(dt) {
+        this.stars.forEach((star) => {
+            star.position.x += this.starSpeed * dt;
+
+            if (star.position.x >= CANVAS_WIDTH + star.dimensions.x) {
+                star.position.x = 0 - star.dimensions.x
+                star.position.y = getRandomPositiveInteger(0, CANVAS_HEIGHT);
+            }
+        })
     }
 
     render() {

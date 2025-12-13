@@ -39,9 +39,6 @@ images.load(assetDefinition.images);
 fonts.load(assetDefinition.fonts);
 sounds.load(assetDefinition.sounds);
 
-// Add all the states to the state machine.
-stateStack.push(new PlayState());
-
 const game = new Game(
 	stateStack,
 	context,
@@ -49,6 +46,9 @@ const game = new Game(
 	canvas.width,
 	canvas.height
 );
+
+// Add all the states to the state machine.
+stateStack.push(new TitleScreenState());
 
 game.start();
 
