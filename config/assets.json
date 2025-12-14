@@ -39,6 +39,14 @@
 		{
 			"name": "Binary",
 			"path": "../assets/fonts/binxchr.ttf"
+		},
+		{
+			"name": "04B",
+			"path": "../assets/fonts/04B_21__.ttf"
+		},
+		{
+			"name": "Minecraftia",
+			"path": "../assets/fonts/Minecraftia-Regular.ttf"
 		}
 	],
 	"sounds": [

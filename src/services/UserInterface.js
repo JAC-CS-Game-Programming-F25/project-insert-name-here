@@ -35,11 +35,11 @@ export default class UserInterface {
 
         context.fillStyle = Colour.Black;
         context.fillText(`Level: ${this.playstate.currentLevelValue}`, 6, CANVAS_HEIGHT - 14);
-		context.fillText(`Hordes Left: ${this.playstate.currentlevel.hordes.length}`, 6, CANVAS_HEIGHT - 4);
+		context.fillText(`Aliens Left: ${this.playstate.currentlevel.currentHorde.aliens.length}`, 6, CANVAS_HEIGHT - 4);
 
 		context.fillStyle = Colour.White;
         context.fillText(`Level: ${this.playstate.currentLevelValue}`, 5, CANVAS_HEIGHT - 15);
-		context.fillText(`Hordes Left: ${this.playstate.currentlevel.hordes.length}`, 5, CANVAS_HEIGHT - 5);
+		context.fillText(`Aliens Left: ${this.playstate.currentlevel.currentHorde.aliens.length}`, 5, CANVAS_HEIGHT - 5);
     }
 
     renderLives() {

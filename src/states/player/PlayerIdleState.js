@@ -56,10 +56,12 @@ export default class PlayerIdleState extends State {
             sounds.play(SoundName.PlayerShoot);
 
             if (this.player.isBulletSpreadActive) {
-                // (Bullet-spread power-up stuff. Hell yeah)
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle, BulletType.Spread));
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle + 0.3, BulletType.Spread)); 
-                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle - 0.3, BulletType.Spread));
+                // (Bullet-spread power-up stuff.)
+                //this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle, BulletType.Spread));
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle + 0.50, BulletType.Spread));
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle - 0.50, BulletType.Spread));
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle + 0.125, BulletType.Spread)); 
+                this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle - 0.125, BulletType.Spread));
             }
             else if (this.player.fireRate != this.player.normalFireRate) {
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle, BulletType.RapidFire));

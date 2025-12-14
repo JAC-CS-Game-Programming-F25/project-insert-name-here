@@ -67,6 +67,10 @@ export default class ShipSelectScreenState extends State {
             stateStack.pop();
             stateStack.push(new LevelTransitionState(1, this.background, this.currentShipIndex, null));
 		}
+        else if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
+            sounds.play(SoundName.ShipSelect);
+            stateStack.pop();
+		}
         else if (input.isKeyPressed(Input.KEYS.ARROW_LEFT)) {
             sounds.play(SoundName.ShipSelect);
             this.currentShipIndex -= 1;

@@ -15,7 +15,6 @@ export default class HighScoreManager {
 
     update(newScore) {
         //console.log(newScore);
-
         this.highScoreValues.push(newScore);
         this.highScoreValues.sort(function(a, b){return b - a});
         this.highScoreValues.pop();

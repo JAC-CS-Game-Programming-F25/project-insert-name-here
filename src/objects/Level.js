@@ -1,5 +1,8 @@
+import Easing from "../../lib/Easing.js";
+import Colour from "../enums/assets/ColorName.js";
+import FontName from "../enums/assets/FontName.js";
 import SoundName from "../enums/assets/SoundName.js";
-import { sounds } from "../globals.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, context, sounds, timer } from "../globals.js";
 import Horde from "./Horde.js";
 
 export default class Level {
@@ -20,6 +23,13 @@ export default class Level {
     }
 
     render() {
+        context.font = `15px ${FontName.Pixellari}`;
+        context.textAlign = 'center';
+        context.fillStyle = Colour.Black;
+        context.fillText(`HORDE ${this.currentHordeValue + 1}/${this.levelValue}`, CANVAS_WIDTH/2 + 2, 20 + 2);
+        context.fillStyle = Colour.White;
+        context.fillText(`HORDE ${this.currentHordeValue + 1}/${this.levelValue}`, CANVAS_WIDTH/2, 20);
+
         this.currentHorde.render();
     }
 

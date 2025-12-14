@@ -4,13 +4,15 @@ import Colour from "../enums/assets/ColorName.js";
 import { context, CANVAS_WIDTH, CANVAS_HEIGHT } from "../globals.js";
 
 export default class Star {
-    static MIN_SIZE = 2;
-    static MAX_SIZE = 6;
-    static HALF_WAY = 4;
+    static MIN_SIZE = 1;
+    static MAX_SIZE = 4;
+    static HALF_WAY = Star.MAX_SIZE/2;
+    static BASE_STAR_SPEED = 10;
     
     constructor() {
         this.position = this.setPosition();
         this.dimensions = this.setDimensions();
+        this.speed = Star.BASE_STAR_SPEED;
 
         this.isGrowing = false;
 
@@ -19,7 +21,16 @@ export default class Star {
         }
     }
 
-    update() {
+    update(dt, speed) {
+        this.speed = speed;
+
+        this.position.x += this.speed * dt;
+
+        if (this.position.x >= CANVAS_WIDTH + this.dimensions.x) {
+            this.position.x = 0 - this.dimensions.x
+            this.position.y = getRandomPositiveInteger(0, CANVAS_HEIGHT);
+        }
+
         this.twinkle();
     }
 

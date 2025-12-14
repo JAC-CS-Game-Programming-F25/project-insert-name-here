@@ -28,18 +28,12 @@ export default class GameBackground {
 
     update(dt) {
         this.stars.forEach((star) => {
-            star.position.x += this.starSpeed * dt;
-
-            if (star.position.x >= CANVAS_WIDTH + star.dimensions.x) {
-                star.position.x = 0 - star.dimensions.x
-                star.position.y = getRandomPositiveInteger(0, CANVAS_HEIGHT);
-            }
-
-            star.update();
+            star.update(dt, this.starSpeed);
         })
     }
 
     render() {
+        context.imageSmoothingEnabled = true;
         context.fillStyle = Colour.NavyBlue;
         context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 

@@ -115,8 +115,12 @@ export default class PlayState extends State {
 		this.background.render();
 
 		this.entities.forEach((entity) => {
-			entity.render();
+			if (!(entity instanceof Player)) {
+				entity.render();
+			}
 		});
+
+		this.player.render();
 
 		this.currentlevel.render();
 
