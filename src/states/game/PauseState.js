@@ -27,11 +27,16 @@ export default class PauseState extends State {
         
         context.font = `30px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('PAUSED', CANVAS_WIDTH/2 + 3, CANVAS_HEIGHT/2 + 3);
 		context.fillStyle = Colour.White;
 		context.fillText('PAUSED', CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
 
 		context.font = `15px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('Press \'ESCAPE\' to resume playing.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 22);
+		context.fillText('Press \'ENTER\' to leave game.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 37);
 		context.fillStyle = Colour.White;
 		context.fillText('Press \'ESCAPE\' to resume playing.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 20);
 		context.fillText('Press \'ENTER\' to leave game.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 35);

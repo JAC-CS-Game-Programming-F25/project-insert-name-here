@@ -52,6 +52,8 @@ export default class LevelTransitionState extends State {
 
         context.font = `25px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+        context.fillStyle = Colour.Black;
+		context.fillText(`LEVEL ${this.levelValue}`, CANVAS_WIDTH/2 + 3, CANVAS_HEIGHT/2 + 3);
 		context.fillStyle = Colour.White;
 		context.fillText(`LEVEL ${this.levelValue}`, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
     }

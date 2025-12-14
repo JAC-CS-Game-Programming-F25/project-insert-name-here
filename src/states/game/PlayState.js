@@ -16,6 +16,7 @@ import Colour from "../../enums/assets/ColorName.js";
 import LevelTransitionState from "./LevelTransitionState.js";
 import SoundName from "../../enums/assets/SoundName.js";
 import AbilityType from "../../enums/AbilityType.js";
+import UserInterface from "../../services/UserInterface.js";
 
 export default class PlayState extends State {
 	static RAPID_FIRE_DURATION = 6;
@@ -27,6 +28,8 @@ export default class PlayState extends State {
 	
 	constructor(shipType, background = new GameBackground()) {
 		super();
+
+		this.userInterface = new UserInterface(this);
 		
 		this.currentLevelValue = 1;
 
@@ -117,46 +120,9 @@ export default class PlayState extends State {
 
 		this.currentlevel.render();
 
-		this.renderStats();
+		this.userInterface.render();
 
 		super.render();
-	}
-
-	renderStats() {
-		context.font = `10px ${FontName.Pixellari}`;
-		context.textAlign = 'left';
-		context.fillStyle = Colour.White;
-		context.fillText(`Score: ${this.score}`, 5, 15);
-		context.fillText(`Level: ${this.currentLevelValue}`, 5, CANVAS_HEIGHT - 15);
-		context.fillText(`Hordes Left: ${this.currentlevel.hordes.length}`, 5, CANVAS_HEIGHT - 5);
-
-		context.textAlign = 'right';
-		context.fillStyle = Colour.White;
-		context.fillText(`Lives: ${this.player.lives}`, CANVAS_WIDTH - 5, 15);
-
-		context.font = `20px ${FontName.Binary}`;
-		switch (this.currentAbility) {
-			case AbilityType.RapidFire:
-				context.fillStyle = Colour.Black;
-				context.fillText(AbilityType.RapidFire, CANVAS_WIDTH - 4, CANVAS_HEIGHT - 4);
-				context.fillStyle = Colour.Cyan;
-				context.fillText(AbilityType.RapidFire, CANVAS_WIDTH - 5, CANVAS_HEIGHT - 5);
-				break;
-			case AbilityType.BulletSpread:
-				context.fillStyle = Colour.Black;
-				context.fillText(AbilityType.BulletSpread, CANVAS_WIDTH - 4, CANVAS_HEIGHT - 4);
-				context.fillStyle = Colour.HotPink;
-				context.fillText(AbilityType.BulletSpread, CANVAS_WIDTH - 5, CANVAS_HEIGHT - 5);
-				break;
-			case AbilityType.TimeDilation:
-				context.fillStyle = Colour.Black;
-				context.fillText(AbilityType.TimeDilation, CANVAS_WIDTH - 4, CANVAS_HEIGHT - 4);
-				context.fillStyle = Colour.LimeGreen;
-				context.fillText(AbilityType.TimeDilation, CANVAS_WIDTH - 5, CANVAS_HEIGHT - 5);
-				break;
-			default:
-				break;
-		}
 	}
 
 	pushNewEntity(entity) {

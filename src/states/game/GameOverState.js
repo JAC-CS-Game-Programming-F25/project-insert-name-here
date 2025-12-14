@@ -23,11 +23,16 @@ export default class GameOverState extends State {
 
 		context.font = `30px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('GAME OVER', CANVAS_WIDTH/2 + 3, CANVAS_HEIGHT/2 - 7);
 		context.fillStyle = Colour.Red;
 		context.fillText('GAME OVER', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 - 10);
 
 		context.font = `15px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('Press \'ESCAPE\' to play again.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 12);
+		context.fillText('Press \'ENTER\' to return to proceed.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 27, 175);
 		context.fillStyle = Colour.Red;
 		context.fillText('Press \'ESCAPE\' to play again.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 10);
 		context.fillText('Press \'ENTER\' to return to proceed.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 25, 175);

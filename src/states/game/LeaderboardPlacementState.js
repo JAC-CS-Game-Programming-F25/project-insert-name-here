@@ -22,12 +22,17 @@ export default class LeaderboardPlacementState extends State {
 
         context.font = `30px ${FontName.Pixellari}`;
         context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+        context.fillText("HIGHSCORES", CANVAS_WIDTH/2 + 2, 42);
 		context.fillStyle = Colour.White;
         context.fillText("HIGHSCORES", CANVAS_WIDTH/2, 40);
 
 	    highScoreManager.render();
 
         context.font = `15px ${FontName.Pixellari}`;
+		context.fillStyle = Colour.Black;
+		context.fillText('Press \'ENTER\' to proceed.', CANVAS_WIDTH/2 + 2, 167);
+		context.fillStyle = Colour.White;
 		context.fillText('Press \'ENTER\' to proceed.', CANVAS_WIDTH/2, 165);
 	}
 

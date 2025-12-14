@@ -37,20 +37,29 @@ export default class ShipSelectScreenState extends State {
         
         context.font = `20px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+        context.fillStyle = Colour.Black;
+		context.fillText('SELECT YOUR SHIP', CANVAS_WIDTH/2 + 3, CANVAS_HEIGHT/2 - 27);
 		context.fillStyle = Colour.White;
 		context.fillText('SELECT YOUR SHIP', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 - 30);
 
-        this.playerShipSprites[this.currentShipIndex].render(CANVAS_WIDTH/2 - Player.WIDTH, CANVAS_HEIGHT/2 - Player.HEIGHT);
+        context.filter = 'brightness(0%)';
+        this.playerShipSprites[this.currentShipIndex].render(CANVAS_WIDTH/2 - Player.WIDTH/2 + 2, CANVAS_HEIGHT/2 - Player.HEIGHT + 7);
+        context.filter = 'brightness(100%)';
+        this.playerShipSprites[this.currentShipIndex].render(CANVAS_WIDTH/2 - Player.WIDTH/2, CANVAS_HEIGHT/2 - Player.HEIGHT + 5);
 
         context.font = `15px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+        context.fillStyle = Colour.Black;
+        context.fillText(PlayerShipNames[this.currentShipIndex], CANVAS_WIDTH/2 + 1.5, CANVAS_HEIGHT/2 + 27);
 		context.fillStyle = Colour.White;
-        context.fillText(PlayerShipNames[this.currentShipIndex], CANVAS_WIDTH/2 - 7.5, CANVAS_HEIGHT/2 + 15);
+        context.fillText(PlayerShipNames[this.currentShipIndex], CANVAS_WIDTH/2 - 1.5, CANVAS_HEIGHT/2 + 25);
 
 		context.font = `15px ${FontName.Binary}`;
 		context.textAlign = 'center';
+        context.fillStyle = Colour.Black;
+		context.fillText('Press \'ENTER\' to start.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 47);
 		context.fillStyle = Colour.White;
-		context.fillText('Press \'ENTER\' to start.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 35);
+		context.fillText('Press \'ENTER\' to start.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 45);
 	}
 
 	checkForCommands() {

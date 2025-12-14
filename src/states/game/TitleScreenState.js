@@ -27,11 +27,15 @@ export default class TitleScreenState extends State {
         
         context.font = `25px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('ASTRAL ASSAULT', CANVAS_WIDTH/2 + 3, CANVAS_HEIGHT/2 + 3);
 		context.fillStyle = Colour.White;
 		context.fillText('ASTRAL ASSAULT', CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
 
 		context.font = `15px ${FontName.Binary}`;
 		context.textAlign = 'center';
+		context.fillStyle = Colour.Black;
+		context.fillText('Press \'ENTER\' to proceed.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT/2 + 20 + 2);
 		context.fillStyle = Colour.White;
 		context.fillText('Press \'ENTER\' to proceed.', CANVAS_WIDTH/2, CANVAS_HEIGHT/2 + 20);
 	}
