@@ -2,9 +2,10 @@ import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
 import Bullet from "../../entities/Bullet.js";
 import Player from "../../entities/Player.js";
+import SoundName from "../../enums/assets/SoundName.js";
 import BulletType from "../../enums/BulletType.js";
 import PlayerStateName from "../../enums/states/PlayerStateName.js";
-import { input } from "../../globals.js";
+import { input, sounds } from "../../globals.js";
 
 export default class PlayerIdleState extends State {
     constructor(player, playstate, animation) {
@@ -52,6 +53,8 @@ export default class PlayerIdleState extends State {
 
     checkForShooting() {
         if (input.isMouseButtonHeld(Input.MOUSE.LEFT) && this.player.fireTimer <= 0) {
+            sounds.play(SoundName.PlayerShoot);
+
             if (this.player.isBulletSpreadActive) {
                 // (Bullet-spread power-up stuff. Hell yeah)
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle, BulletType.Spread));

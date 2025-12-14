@@ -5,11 +5,15 @@ import StateStack from '../lib/StateStack.js';
 import Timer from '../lib/Timer.js';
 import Input from '../lib/Input.js';
 import AlienFactory from './services/AlienFactory.js'
+import HighScoreManager from './services/HighScoreManager.js';
 
 export const canvas = document.createElement('canvas');
 export const context =
 	canvas.getContext('2d') || new CanvasRenderingContext2D();
 const assetDefinition = await fetch('./config/assets.json').then((response) =>
+	response.json()
+);
+const highScoresDefinition = await fetch('./assets/highscores.json').then((response) =>
 	response.json()
 );
 
@@ -26,6 +30,8 @@ const resizeCanvas = () => {
 	canvas.style.height = `${CANVAS_HEIGHT * scale}px`;
 };
 
+export const startTime = Date.now();
+
 // Listen for canvas resize events
 window.addEventListener('resize', resizeCanvas);
 
@@ -38,7 +44,7 @@ export const stateStack = new StateStack();
 export const timer = new Timer();
 export const input = new Input(canvas);
 export const sounds = new Sounds();
-
+export const highScoreManager = new HighScoreManager(highScoresDefinition);
 export const alienFactory = new AlienFactory();
 
 // If true, render all hitboxes.

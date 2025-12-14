@@ -1,45 +1,51 @@
 import Animation from '../../../lib/Animation.js';
-import Colour from '../../enums/assets/ColorName.js'
-import Hitbox from '../../../lib/Hitbox.js';
+import Alien from './Alien.js';
 import Vector from '../../../lib/Vector.js';
-import GameEntity from '../GameEntity.js';
-import Sprite from '../../../lib/Sprite.js'
-import ImageName from '../../enums/assets/ImageName.js';
-import StateMachine from '../../../lib/StateMachine.js';
-import { 
-    context, 
-    DEBUG, 
-    images, 
-    sounds, 
-    timer, 
-    CANVAS_WIDTH, 
-    CANVAS_HEIGHT,
-    input,
-    keys,
-    canvas
-} from '../../globals.js';
-import AlienStateName from "../../enums/states/AlienStateName.js"
-import AlienIdleState from "../../states/alien/AlienIdleState.js";
-import AlienDyingState from "../../states/alien/AlienDyingState.js";
-import { didSucceedPercentChance, getRandomPositiveInteger } from '../../../lib/Random.js';
+import { startTime } from '../../globals.js';
 
 export default class Scion extends Alien {
     constructor(playState) {
         super(playState = playState);
 
+        this.distance = this.calculateDistanceToPlayer();
+
+        this.movementAngle, this.radius = this.calculateDistanceToPlayer();
+
+        this.angleSpeed = this.speed;
+        this.radialSpeed = -this.angleSpeed/4;
+
         this.idleAnimation = new Animation([1], 0);
 
         this.currentAnimation = this.idleAnimation
+
+        this.points = Alien.SCION_POINTS;
     }
 
-    updatePosition(dt) {
-        this.position.x += this.trajectory.x * (this.speed * dt);
-        this.position.y += this.trajectory.y * (this.speed * dt);
+    updateScionPosition(dt) {
+        let currentTime = Date.now() - startTime
+
+        let t = 10 - ((currentTime * 2) % 10);
+
+        this.movementAngle = this.angleSpeed * t;
+        this.radius -= this.radialSpeed * t;
+
+        this.radius = Math.max(0, this.radius);
+
+        this.position.x = this.radius * Math.cos(this.degreesToRadians(this.movementAngle))
+        this.position.y = this.radius * Math.sin(this.degreesToRadians(this.movementAngle))
 
         if (!this.didGoOffScreen()) {
             this.isHittable = true;
         }
 
         //console.log(this.position);
+    }
+
+    calculateDistanceToPlayer() {
+        return Math.sqrt((this.playerPosition.x - this.position.x)**2 + (this.playerPosition.y - this.position.y)**2)
+    }
+
+    degreesToRadians(degrees) {
+        return degrees * (Math.PI/180);
     }
 }

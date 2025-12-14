@@ -89,6 +89,36 @@
 			"path": "../assets/sounds/effects/time-dilation.wav",
 			"size": 1,
 			"volume": 0.2
+		},
+		{
+			"name": "ability-deactivate",
+			"path": "../assets/sounds/effects/ability-deactivate.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "ship-select",
+			"path": "../assets/sounds/effects/ship-select.wav",
+			"size": 5,
+			"volume": 0.2
+		},
+		{
+			"name": "leave",
+			"path": "../assets/sounds/effects/leave.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "proceed",
+			"path": "../assets/sounds/effects/proceed.wav",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "pause",
+			"path": "../assets/sounds/effects/pause.wav",
+			"size": 5,
+			"volume": 0.2
 		}
 	]
 }

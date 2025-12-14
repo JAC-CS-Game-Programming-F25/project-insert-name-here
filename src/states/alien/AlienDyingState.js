@@ -1,4 +1,6 @@
 import State from "../../../lib/State.js";
+import SoundName from "../../enums/assets/SoundName.js";
+import { sounds } from "../../globals.js";
 
 export default class AlienDyingState extends State {
     constructor(alien, animation) {
@@ -9,13 +11,13 @@ export default class AlienDyingState extends State {
     }
 
     enter() {
+        sounds.play(SoundName.EnemyDeath);
         this.alien.sprites = this.alien.blueEffectSprites;
         this.alien.currentAnimation = this.animation;
         this.alien.isHittable = false;
     }
 
     update(dt) {
-        console.log("Check alien animation.");
         this.checkForCleanUp();
     }
 

@@ -15,12 +15,12 @@ export default class PlayerRevivingState extends State {
     }
 
     update(dt) {
-        console.log("Check player animation.");
-        this.checkForRRevived();
+        this.checkForRevived();
     }
 
-    checkForRRevived() {
+    checkForRevived() {
         if (this.player.currentAnimation.isDone()) {
+            this.player.currentAnimation.refresh();
             this.player.changeState(PlayerStateName.Idle);
         }
     }

@@ -93,4 +93,12 @@ export default class Bullet extends GameEntity {
         this.position.x += this.trajectory.x * (this.speed * dt);
         this.position.y += this.trajectory.y * (this.speed * dt);
     }
+
+    didGoOffScreen() {
+		if (this.position.x < -10 || this.position.x > CANVAS_WIDTH + 10 && 
+			this.position.y < -10 || this.position.y > CANVAS_HEIGHT + 10
+		) {
+			this.cleanUp = true;
+		}
+	}
 }

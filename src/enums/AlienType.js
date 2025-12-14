@@ -1,6 +1,6 @@
 const AlienType = {
-    Pawn: 'pawn',
-    Scion: 'scion',
+    Alien: 0,
+    Scion: 1,
 }
 
 export default AlienType;

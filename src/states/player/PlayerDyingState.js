@@ -1,6 +1,7 @@
 import State from "../../../lib/State.js";
+import SoundName from "../../enums/assets/SoundName.js";
 import PlayerStateName from "../../enums/states/PlayerStateName.js";
-import { timer } from "../../globals.js";
+import { sounds, timer } from "../../globals.js";
 
 export default class PlayerDyingState extends State {
     static DEAD_DURATION = 2;
@@ -15,13 +16,14 @@ export default class PlayerDyingState extends State {
     }
 
     enter() {
+        sounds.play(SoundName.PlayerDeath);
         this.player.sprites = this.player.orangeEffectSprites;
         this.player.currentAnimation = this.animation;
         this.player.isHittable = false;
     }
 
     update(dt) {
-        console.log("Check player animation.");
+        //console.log("Check player animation.");
         this.checkForCleanUp();
 
         this.deadTimer -= dt

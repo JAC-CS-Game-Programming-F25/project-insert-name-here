@@ -3,15 +3,19 @@ import Player from "../entities/Player.js";
 import Bullet from "../entities/Bullet.js";
 import Level from "./Level.js"
 import PlayState from "../states/game/PlayState.js";
-import { didSucceedPercentChance, getRandomPositiveInteger } from "../../lib/Random.js";
+import { didSucceedPercentChance, getRandomPositiveInteger, oneInXChance } from "../../lib/Random.js";
+import AlienType from "../enums/AlienType.js";
+import AlienFactory from "../services/AlienFactory.js";
 
 export default class Horde {
-    static SPAWN_TIMER = 1.5
+    static BASE_SPAWN_DURATION = 1.5;
     
     constructor(level, playState) {
         this.playState = playState
         this.level = level;
         this.levelValue = level.levelValue;
+
+        this.scionSpawnBaseChance = 4;
 
         this.alienCount = this.levelValue + 4;
 
@@ -42,7 +46,7 @@ export default class Horde {
         let alienSpawned = false
         
         if (this.alienSpawnTimer <= 0) {
-            console.log(`Alien Count: ${this.aliens.length}`);
+            //console.log(`Alien Count: ${this.aliens.length}`);
 
             let index = getRandomPositiveInteger(0, this.aliens.length - 1);
 
@@ -51,15 +55,32 @@ export default class Horde {
                 alienSpawned = true;
             }
 
-            this.alienSpawnTimer = Horde.SPAWN_TIMER;
+            this.alienSpawnTimer = Horde.BASE_SPAWN_DURATION;
         }
     }
 
     initializeAliens() {
         let aliens = []
+        let scionChance = (this.scionSpawnBaseChance * (this.levelValue + 2))/100;
 
-        for (let a = 0; a < this.alienCount + 4; a++) {
-            aliens.push(new Alien(this.playState));
+        if (this.levelValue  < 3) {
+            for (let a = 0; a < this.alienCount; a++) {
+                aliens.push(new Alien(this.playState));
+            }
+        }
+        else {
+            for (let a = 0; a < this.alienCount; a++) {
+                //console.log("Rolling for alien");
+
+                if (didSucceedPercentChance(scionChance)) {
+                    //console.log("Scion");
+                    aliens.push(AlienFactory.createInstance(AlienType.Scion, this.playState));
+                }
+                else {
+                    //console.log("Alien");
+                    aliens.push(AlienFactory.createInstance(AlienType.Alien, this.playState));
+                }
+            }
         }
 
         return aliens;
@@ -74,7 +95,7 @@ export default class Horde {
             alien.isDead = true;
             entity.cleanUp = true;
 
-            this.increaseScore();
+            this.increaseScore(alien.points);
 
             if (!this.playState.isAbilityActive) {
                 this.rollForAbility();
@@ -90,18 +111,18 @@ export default class Horde {
         }
     }
 
-    increaseScore() {
-        this.playState.score += 10;
+    increaseScore(points) {
+        this.playState.score += points;
     }
 
     rollForAbility() {
         if (didSucceedPercentChance(0.05)) {
             this.playState.activateRapidFire();
         }
-        else if (didSucceedPercentChance(0.03)) {
+        else if (didSucceedPercentChance(0.05)) {
             this.playState.activateBulletSpread();
         }
-        else if (didSucceedPercentChance(0.005)) {
+        else if (didSucceedPercentChance(0.05)) {
             this.playState.activateTimeDilation();
         }
     }

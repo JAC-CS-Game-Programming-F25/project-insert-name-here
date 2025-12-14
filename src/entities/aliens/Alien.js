@@ -22,11 +22,14 @@ import AlienStateName from "../../enums/states/AlienStateName.js"
 import AlienIdleState from "../../states/alien/AlienIdleState.js";
 import AlienDyingState from "../../states/alien/AlienDyingState.js";
 import { didSucceedPercentChance, getRandomPositiveInteger } from '../../../lib/Random.js';
+import Bullet from '../Bullet.js';
 
 export default class Alien extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
     static MAX_SPEED = 40;
+    static BASE_POINTS = 10;
+    static SCION_POINTS = 15;
 
     constructor(playState) {
         super(playState = playState);
@@ -91,6 +94,8 @@ export default class Alien extends GameEntity {
 
         this.speed = Alien.MAX_SPEED;
 
+        this.points = Alien.BASE_POINTS;
+
         this.alpha = 1;
     }
 
@@ -99,6 +104,7 @@ export default class Alien extends GameEntity {
         this.position.y += this.trajectory.y * (this.speed * dt);
 
         if (!this.didGoOffScreen()) {
+            //console.log("Set to hittable.")
             this.isHittable = true;
         }
 

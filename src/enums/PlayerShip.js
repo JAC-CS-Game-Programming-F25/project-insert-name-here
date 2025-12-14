@@ -1,13 +1,13 @@
 const PlayerShip = {
-    John: 0,
-    Mary: 1,
-    Thomas: 2,
+    Clyde: 0,
+    Maple: 1,
+    Thor: 2,
     Julio: 3,
-    Robert: 4,
+    Victor: 4,
     Ezekiel: 5,
-    Annabeth: 6,
-    Susie: 7,
-    Kris: 8
+    Horatio: 6,
+    Sable: 7,
+    Chad: 8
 }
 
 export default PlayerShip;

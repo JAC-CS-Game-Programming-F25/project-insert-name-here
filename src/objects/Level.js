@@ -1,3 +1,5 @@
+import SoundName from "../enums/assets/SoundName.js";
+import { sounds } from "../globals.js";
 import Horde from "./Horde.js";
 
 export default class Level {
@@ -38,8 +40,15 @@ export default class Level {
             }
             else {
                 console.log("NEXT HORDE");
-            
-                this.currentHordeValue += 1;
+                
+                sounds.play(SoundName.NextHorde)
+
+                let tempHordes = [...this.hordes];
+                tempHordes.reverse();
+                tempHordes.pop();
+                tempHordes.reverse();
+
+                this.hordes = tempHordes;
                 this.currentHorde = this.hordes[this.currentHordeValue];
             }
         }

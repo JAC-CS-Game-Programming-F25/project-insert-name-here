@@ -1,6 +1,6 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, images } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, images, sounds } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
@@ -9,6 +9,7 @@ import Sprite from "../../../lib/Sprite.js";
 import ImageName from "../../enums/assets/ImageName.js";
 import Player from "../../entities/Player.js";
 import LevelTransitionState from "./LevelTransitionState.js";
+import SoundName from "../../enums/assets/SoundName.js";
 
 export default class ShipSelectScreenState extends State {
     constructor(background) {
@@ -57,6 +58,7 @@ export default class ShipSelectScreenState extends State {
             stateStack.push(new LevelTransitionState(1, this.background, this.currentShipIndex, null));
 		}
         else if (input.isKeyPressed(Input.KEYS.ARROW_LEFT)) {
+            sounds.play(SoundName.ShipSelect);
             this.currentShipIndex -= 1;
 
             if (this.currentShipIndex < 0) {
@@ -64,6 +66,7 @@ export default class ShipSelectScreenState extends State {
             }
         }
         else if (input.isKeyPressed(Input.KEYS.ARROW_RIGHT)) {
+            sounds.play(SoundName.ShipSelect);
             this.currentShipIndex += 1;
 
             if (this.currentShipIndex > 8) {

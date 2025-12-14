@@ -7,8 +7,6 @@
  *
  * Asset sources
  */
-
-import GameStateName from './enums/states/GameStateName.js';
 import Game from '../lib/Game.js';
 import {
 	canvas,
@@ -22,7 +20,6 @@ import {
 	stateStack,
 } from './globals.js';
 import TitleScreenState from './states/game/TitleScreenState.js';
-import PlayState from './states/game/PlayState.js';
 
 // Set the dimensions of the play area.
 canvas.width = CANVAS_WIDTH;

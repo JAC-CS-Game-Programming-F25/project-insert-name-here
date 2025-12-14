@@ -1,12 +1,13 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
 import GameBackground from "../../objects/Background.js";
 import ShipType from "../../enums/PlayerShip.js";
 import ShipSelectScreenState from "./ShipSelectScreenState.js";
+import SoundName from "../../enums/assets/SoundName.js";
 
 export default class TitleScreenState extends State {
 	constructor() {
@@ -37,6 +38,7 @@ export default class TitleScreenState extends State {
 
 	checkForPlay() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
+			sounds.play(SoundName.ShipSelect);
 			stateStack.push(new ShipSelectScreenState(this.background));
 		}
 	}

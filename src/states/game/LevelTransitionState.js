@@ -1,9 +1,10 @@
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
 import GameBackground from "../../objects/Background.js";
+import SoundName from "../../enums/assets/SoundName.js";
 
 export default class LevelTransitionState extends State {
     static TRANSITION_DURATION = 3
@@ -21,6 +22,10 @@ export default class LevelTransitionState extends State {
         this.transitionTimer = LevelTransitionState.TRANSITION_DURATION; 
     }
 
+    enter() {
+        sounds.play(SoundName.NextLevel);
+    }
+
     update(dt) {
         this.background.update(dt);
 
@@ -34,11 +39,12 @@ export default class LevelTransitionState extends State {
             else {
                 stateStack.pop();
                 this.playState.background = this.background;
-                this.playState.currentLevelValue += 1;
             }
         }
 
         this.transitionTimer -= dt;
+
+
     }
 
     render() {
