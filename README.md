@@ -10,14 +10,14 @@
 
 ---
 
-# Proposal - Astral Assault
+# Proposal - Zeno-Blitz
 
 > [!note]
 > This proposal, while it will have a section dedicated to various nice-to-haves, does not demonstrate through alternative diagrams of how they will be implemented. It will however describe how they may be implemented.
 
 ## ✒️ Description
 
-In this interstellar shoot 'em up game, players take on the role of a pilot and their ship having to eternally survive through hordes upon hordes of alien enemies until they themselves are defeated. Players will control a stationary ship at the center of their screa, and aim to fire at and destroy various incoming aliens. _Astral Assault_ is a level-based game, with the player having to face more hordes for each level the further they progress. There is no present win condition, only the goal to simply survive for as long as possible and get as high of a score as possible.
+In this interstellar shoot 'em up game, players take on the role of a pilot and their ship having to eternally survive through hordes upon hordes of alien enemies until they themselves are defeated. Players will control a stationary ship at the center of their screa, and aim to fire at and destroy various incoming aliens. _Zeno-Blitz_ is a level-based game, with the player having to face more hordes for each level the further they progress. There is no present win condition, only the goal to simply survive for as long as possible and get as high of a score as possible.
 
 ## 🕹️ Gameplay
 

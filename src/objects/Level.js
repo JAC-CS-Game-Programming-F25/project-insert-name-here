@@ -12,6 +12,7 @@ export default class Level {
 
         this.hordes = this.intializeHordes();
 
+        this.currentHordeDisplayValue = 1;
         this.currentHordeValue = 0;
         this.currentHorde = this.hordes[this.currentHordeValue];
     }
@@ -26,9 +27,9 @@ export default class Level {
         context.font = `15px ${FontName.Pixellari}`;
         context.textAlign = 'center';
         context.fillStyle = Colour.Black;
-        context.fillText(`HORDE ${this.currentHordeValue + 1}/${this.levelValue}`, CANVAS_WIDTH/2 + 2, 20 + 2);
+        context.fillText(`HORDE ${this.currentHordeDisplayValue}/${this.levelValue}`, CANVAS_WIDTH/2 + 2, 20 + 2);
         context.fillStyle = Colour.White;
-        context.fillText(`HORDE ${this.currentHordeValue + 1}/${this.levelValue}`, CANVAS_WIDTH/2, 20);
+        context.fillText(`HORDE ${this.currentHordeDisplayValue}/${this.levelValue}`, CANVAS_WIDTH/2, 20);
 
         this.currentHorde.render();
     }
@@ -60,6 +61,7 @@ export default class Level {
 
                 this.hordes = tempHordes;
                 this.currentHorde = this.hordes[this.currentHordeValue];
+                this.currentHordeDisplayValue += 1;
             }
         }
     }

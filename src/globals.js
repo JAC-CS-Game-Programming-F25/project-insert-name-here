@@ -17,6 +17,8 @@ const highScoresDefinition = await fetch('./assets/highscores.json').then((respo
 	response.json()
 );
 
+export const GAME_TITLE = "ZENO-BLITZ"
+
 // Replace these values according to how big you want your canvas.
 export const CANVAS_WIDTH = 240;
 export const CANVAS_HEIGHT = 180;

@@ -1,5 +1,5 @@
 /**
- * Astral Assault
+ * Zeno-Blitz
  *
  * Original by: Aristedes Patelis (6256545@johnabbott.qc.ca)
  *
