@@ -61,7 +61,7 @@ export default class PlayerIdleState extends State {
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle + 0.3, BulletType.Spread)); 
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle - 0.3, BulletType.Spread));
             }
-            else if (this.player.fireRate != Player.BASE_FIRE_RATE) {
+            else if (this.player.fireRate != this.player.normalFireRate) {
                 this.playstate.pushNewEntity(new Bullet(this.playstate, this.player.angle, BulletType.RapidFire));
             }
             else if (this.playstate.isTimeDilationActive) {

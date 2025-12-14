@@ -133,6 +133,10 @@ export default class PlayState extends State {
 		this.entities = this.entities.filter((entity) => !entity.cleanUp);
 	}
 
+	cleanUpBullets() {
+		this.entities = this.entities.filter((entity) => !(entity instanceof Bullet))
+	}
+
 	nextLevel() {
 		console.log("NEXT LEVEL");
 		this.deactivateAbilities();
@@ -141,6 +145,7 @@ export default class PlayState extends State {
 		this.currentLevelValue += 1
 		this.currentlevel = new Level(this, this.currentLevelValue);
 		stateStack.push(new LevelTransitionState(this.currentLevelValue, this.background, this.shipType, this))
+		this.cleanUpBullets();
 	}
 
 	gameOver() {
