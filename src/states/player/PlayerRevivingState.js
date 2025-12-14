@@ -1,5 +1,7 @@
 import State from "../../../lib/State.js";
+import SoundName from "../../enums/assets/SoundName.js";
 import PlayerStateName from "../../enums/states/PlayerStateName.js";
+import { sounds } from "../../globals.js";
 
 export default class PlayerRevivingState extends State {
     constructor(player, animation) {
@@ -10,6 +12,7 @@ export default class PlayerRevivingState extends State {
     }
 
     enter() {
+        sounds.play(SoundName.PlayerRevive);
         this.player.sprites = this.player.orangeEffectSprites;
         this.player.currentAnimation = this.animation;
     }

@@ -3,6 +3,7 @@ const SoundName = {
     NextHorde: 'next-horde',
     NextLevel: 'next-level',
     PlayerDeath: 'player-death',
+    PlayerRevive: 'player-revive',
     PlayerShoot: 'player-shoot',
     RapidFire: 'rapid-fire',
     Shield: 'shield',

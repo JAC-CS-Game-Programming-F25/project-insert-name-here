@@ -136,6 +136,7 @@ export default class PlayState extends State {
 	nextLevel() {
 		console.log("NEXT LEVEL");
 		this.deactivateAbilities();
+		this.player.adjustFireRate();
 
 		this.currentLevelValue += 1
 		this.currentlevel = new Level(this, this.currentLevelValue);

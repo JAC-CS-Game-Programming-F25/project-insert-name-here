@@ -29,6 +29,7 @@ export default class Player extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
     static BASE_FIRE_RATE = 0.3;
+    static LASER_THRESHOLD = 100;
     static MAX_LIVES = 3;
 
     constructor(playState, shipType) {
@@ -127,7 +128,7 @@ export default class Player extends GameEntity {
     }
 
     activateRapidFire() {
-        this.fireRate = Player.BASE_FIRE_RATE/2;
+        this.fireRate = Player.BASE_FIRE_RATE * 0.5;
     }
 
     activateBulletSpread() {
@@ -137,5 +138,10 @@ export default class Player extends GameEntity {
     deactivatePlayerAbilities() {
         this.fireRate = Player.BASE_FIRE_RATE;
         this.isBulletSpreadActive = false;
+    }
+
+    adjustFireRate() {
+        this.fireRate = (-Player.BASE_FIRE_RATE * (this.playstate.currentLevelValue / Player.LASER_THRESHOLD)) + Player.BASE_FIRE_RATE;
+        console.log(this.fireRate);
     }
 }

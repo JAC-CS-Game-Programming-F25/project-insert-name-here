@@ -9,6 +9,7 @@ import AlienFactory from "../services/AlienFactory.js";
 
 export default class Horde {
     static BASE_SPAWN_DURATION = 1.5;
+    static EVENT_HORIZON = 100;
     
     constructor(level, playState) {
         this.playState = playState
@@ -21,7 +22,10 @@ export default class Horde {
 
         this.aliens = this.initializeAliens()
 
+        this.alienSpawnDuration = (-Horde.BASE_SPAWN_DURATION * (this.levelValue / Horde.EVENT_HORIZON)) + Horde.BASE_SPAWN_DURATION;
         this.alienSpawnTimer = 0;
+
+        console.log(this.alienSpawnDuration);
     }
 
     update(dt) {
@@ -50,12 +54,12 @@ export default class Horde {
 
             let index = getRandomPositiveInteger(0, this.aliens.length - 1);
 
-            if (!this.aliens[index].isActive) {
+            if (this.aliens[index] != undefined && !this.aliens[index].isActive) {
                 this.aliens[index].isActive = true;
                 alienSpawned = true;
             }
 
-            this.alienSpawnTimer = Horde.BASE_SPAWN_DURATION;
+            this.alienSpawnTimer = this.alienSpawnDuration;
         }
     }
 
