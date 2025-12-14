@@ -47,7 +47,6 @@ export default class PauseState extends State {
 			sounds.play(SoundName.Leave);
 			stateStack.pop();
 			stateStack.pop();
-			stateStack.pop();
 		}
 		if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
 			sounds.play(SoundName.Pause);

@@ -64,6 +64,7 @@ export default class ShipSelectScreenState extends State {
 
 	checkForCommands() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
+            stateStack.pop();
             stateStack.push(new LevelTransitionState(1, this.background, this.currentShipIndex, null));
 		}
         else if (input.isKeyPressed(Input.KEYS.ARROW_LEFT)) {

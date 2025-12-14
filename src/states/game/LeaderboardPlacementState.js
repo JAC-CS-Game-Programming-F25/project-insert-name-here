@@ -38,7 +38,6 @@ export default class LeaderboardPlacementState extends State {
 
 	checkForNewGame() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
-			stateStack.pop();
             stateStack.pop();
 		}
 	}

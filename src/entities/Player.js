@@ -29,7 +29,7 @@ export default class Player extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
     static BASE_FIRE_RATE = 0.3;
-    static MAX_LIVES = 1;
+    static MAX_LIVES = 3;
 
     constructor(playState, shipType) {
         super(playState = playState);
@@ -56,7 +56,7 @@ export default class Player extends GameEntity {
         );
 
         this.idleAnimation = new Animation([shipType], 0);
-        this.dyingAnimation = new Animation([139,140,141,142,143], 0.1, 1);
+        this.dyingAnimation = new Animation([139,140,141,142,143,6], 0.1, 1);
         this.revivingAnimation = new Animation([143,142,141,140,139], 0.1, 1);
 
         this.sprites = this.shipSprites;

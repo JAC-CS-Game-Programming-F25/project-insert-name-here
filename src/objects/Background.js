@@ -6,7 +6,7 @@ import Star from "./Star.js";
 export default class GameBackground {
     static MIN_STARS = 30;
     static MAX_STARS = 50;
-    static BASE_STAR_SPEED = 20;
+    static BASE_STAR_SPEED = 10;
     static FAST_STAR_SPEED = 700;
 
     constructor() {
@@ -34,6 +34,8 @@ export default class GameBackground {
                 star.position.x = 0 - star.dimensions.x
                 star.position.y = getRandomPositiveInteger(0, CANVAS_HEIGHT);
             }
+
+            star.update();
         })
     }
 
