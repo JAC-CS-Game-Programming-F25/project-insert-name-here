@@ -24,15 +24,16 @@ export default class InstructionsScreenState extends State {
 
 	render() {
 		this.background.render();
-        
-        context.font = `25px ${FontName.Pixellari}`;
+		
+		context.fillStyle = ""
+        context.font = `32px ${FontName.Pixellari}`;
 		context.textAlign = 'center';
 		context.fillStyle = Colour.Black;
 		context.fillText('INSTRUCTIONS', CANVAS_WIDTH/2 + 3, 43);
 		context.fillStyle = Colour.White;
 		context.fillText('INSTRUCTIONS', CANVAS_WIDTH/2, 40);
 
-		context.font = `10px ${FontName.Minecraftia}`;
+		context.font = `8px ${FontName.Minecraftia}`;
 		context.textAlign = 'center';
 		context.fillStyle = Colour.Black;
 		context.fillText('Aim with your mouse from the back of your ship.', CANVAS_WIDTH/2 + 1, 70 + 1, 220);
@@ -44,7 +45,7 @@ export default class InstructionsScreenState extends State {
 		context.font = `15px ${FontName.Pixellari}`;
 		context.fillText('Press \'SPACE\' to go back.', CANVAS_WIDTH/2 + 2, CANVAS_HEIGHT - 15 + 2);
 
-		context.font = `10px ${FontName.Minecraftia}`;
+		context.font = `8px ${FontName.Minecraftia}`; 
 		context.fillStyle = Colour.White;
 		context.fillText('Aim with your mouse from the back of your ship.', CANVAS_WIDTH/2, 70, 220);
 		context.fillText('Left click to shoot.', CANVAS_WIDTH/2, 90, 100);
