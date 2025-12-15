@@ -18,6 +18,7 @@ import {
 	timer,
 	sounds,
 	stateStack,
+	songs,
 } from './globals.js';
 import TitleScreenState from './states/game/TitleScreenState.js';
 
@@ -35,6 +36,7 @@ const assetDefinition = await fetch('./config/assets.json').then((response) => r
 images.load(assetDefinition.images);
 fonts.load(assetDefinition.fonts);
 sounds.load(assetDefinition.sounds);
+songs.load(assetDefinition.songs);
 
 const game = new Game(
 	stateStack,

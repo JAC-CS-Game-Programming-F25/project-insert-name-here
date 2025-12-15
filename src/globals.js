@@ -46,6 +46,7 @@ export const stateStack = new StateStack();
 export const timer = new Timer();
 export const input = new Input(canvas);
 export const sounds = new Sounds();
+export const songs = new Sounds();
 export const highScoreManager = new HighScoreManager(highScoresDefinition);
 export const alienFactory = new AlienFactory();
 

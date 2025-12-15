@@ -134,5 +134,25 @@
 			"size": 5,
 			"volume": 0.2
 		}
+	],
+	"songs": [
+		{
+			"name": "menu",
+			"path": "../assets/sounds/music/041_Faint_Glow.mp3",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "play",
+			"path": "../assets/sounds/music/055_Smart_Race.mp3",
+			"size": 1,
+			"volume": 0.2
+		},
+		{
+			"name": "game-over",
+			"path": "../assets/sounds/music/056_Faint_Courage.mp3",
+			"size": 5,
+			"volume": 0.2
+		}
 	]
 }
