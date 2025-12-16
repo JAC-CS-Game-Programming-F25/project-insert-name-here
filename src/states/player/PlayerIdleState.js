@@ -5,7 +5,7 @@ import Player from "../../entities/Player.js";
 import SoundName from "../../enums/assets/SoundName.js";
 import BulletType from "../../enums/BulletType.js";
 import PlayerStateName from "../../enums/states/PlayerStateName.js";
-import { input, sounds } from "../../globals.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, input, sounds, timer } from "../../globals.js";
 
 export default class PlayerIdleState extends State {
     constructor(player, playstate, animation) {
@@ -32,6 +32,7 @@ export default class PlayerIdleState extends State {
 
         this.player.fireTimer -= dt;
         
+        //this.checkForMovement(dt);
         this.checkForShooting();
         this.checkForDying();
     }
@@ -48,6 +49,49 @@ export default class PlayerIdleState extends State {
     checkForDying() {
         if (this.player.isDead) {
             this.loseLife();
+        }
+    }
+
+    checkForMovement(dt) {
+        if (input.isKeyPressed(Input.KEYS.W)) {
+            this.player.position.y -= this.player.speed * dt;
+
+            if (
+				this.player.position.y <= 0
+			) {
+				this.player.position.y =
+					0
+			}
+        }
+        else if (input.isKeyPressed(Input.KEYS.A)) {
+            this.player.position.x -= this.player.speed * dt;
+
+            if (
+				this.player.position.x <= 0
+			) {
+				this.player.position.x =
+					0
+			}
+        }
+        else if (input.isKeyPressed(Input.KEYS.S)) {
+            this.player.position.y += this.player.speed * dt;
+
+            if (
+				this.player.position.y >= CANVAS_HEIGHT
+			) {
+				this.player.position.y =
+					CANVAS_HEIGHT
+			}
+        }
+        else if (input.isKeyPressed(Input.KEYS.D)) {
+            this.player.position.x += this.player.speed * dt;
+
+            if (
+				this.player.position.x >= CANVAS_WIDTH
+			) {
+				this.player.position.x =
+					CANVAS_WIDTH
+			}
         }
     }
 

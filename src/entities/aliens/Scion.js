@@ -17,6 +17,8 @@ export default class Scion extends Alien {
     constructor(playState) {
         super(playState = playState);
 
+        this.playState = playState;
+
         this.idleAnimation = new Animation([1], 0);
         this.teleportAnimation = new Animation([190,191,192,6], 0.1, 1);
         this.reappearAnimation = new Animation([6,192,191,190], 0.1, 1);

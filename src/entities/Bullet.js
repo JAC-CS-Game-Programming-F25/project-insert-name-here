@@ -14,6 +14,7 @@ import {
     CANVAS_HEIGHT,
     input,
 } from '../globals.js';
+import Player from './Player.js';
 
 export default class Bullet extends GameEntity {
     static WIDTH = 5;
@@ -22,6 +23,8 @@ export default class Bullet extends GameEntity {
 
     constructor(playState, angle, bulletType = 1) {
         super(playState = playState);
+
+        this.playstate = playState;
 
         this.bulletSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.Projectiles),
@@ -35,8 +38,9 @@ export default class Bullet extends GameEntity {
 
         this.currentAnimation = new Animation([bulletType], 0);
 
-        this.position.x = (CANVAS_WIDTH / 2) - (Bullet.WIDTH / 2);
-		this.position.y = (CANVAS_HEIGHT / 2) - (Bullet.HEIGHT / 2);
+        this.position.x = this.playstate.player.position.x + (Player.WIDTH/2) - (Bullet.WIDTH / 2);
+		this.position.y = this.playstate.player.position.y + (Player.HEIGHT/2)  - (Bullet.HEIGHT / 2);
+
 		this.dimensions.x = Bullet.WIDTH;
 		this.dimensions.y = Bullet.HEIGHT;
 

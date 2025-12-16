@@ -36,19 +36,47 @@ export default class ScionTeleportingState extends State {
 
         switch (teleportPath) {
             case 1:
-                if (this.scion.position.x <= CANVAS_WIDTH/2) {
+                if (this.scion.position.x <= this.scion.playState.player.position.x) {
                     this.scion.position.x = getRandomPositiveInteger(CANVAS_WIDTH/2 + ScionTeleportingState.TELEPORT_BOUNDARY, (CANVAS_WIDTH - this.scion.position.x));
+
+                    if (this.scion.position.y <= this.scion.playState.player.position.y) {
+                        this.scion.position.y -= ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
+                    else {
+                        this.scion.position.y += ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
                 }
                 else {
                     this.scion.position.x = getRandomPositiveInteger(this.scion.position.x, CANVAS_WIDTH/2 - ScionTeleportingState.TELEPORT_BOUNDARY);
+
+                    if (this.scion.position.y <= this.scion.playState.player.position.y) {
+                        this.scion.position.y -= ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
+                    else {
+                        this.scion.position.y += ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
                 }
                 break;
             default:
-                if (this.scion.position.y <= CANVAS_HEIGHT/2) {
+                if (this.scion.position.y <= this.scion.playState.player.position.y) {
                     this.scion.position.y = getRandomPositiveInteger(CANVAS_HEIGHT/2 + ScionTeleportingState.TELEPORT_BOUNDARY, (CANVAS_HEIGHT - this.scion.position.y));
+
+                    if (this.scion.position.x <= this.scion.playState.player.position.x) {
+                        this.scion.position.x -= ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
+                    else {
+                        this.scion.position.x += ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
                 }
                 else {
                     this.scion.position.y = getRandomPositiveInteger(this.scion.position.y, CANVAS_HEIGHT/2 - ScionTeleportingState.TELEPORT_BOUNDARY);
+
+                    if (this.scion.position.x <= this.scion.playState.player.position.x) {
+                        this.scion.position.x -= ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
+                    else {
+                        this.scion.position.x += ScionTeleportingState.TELEPORT_BOUNDARY;
+                    }
                 }
                 break;
         }

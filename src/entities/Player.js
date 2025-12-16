@@ -30,7 +30,8 @@ export default class Player extends GameEntity {
     static HEIGHT = 16;
     static BASE_FIRE_RATE = 0.3;
     static LASER_THRESHOLD = 100;
-    static MAX_LIVES = 1;
+    static MAX_LIVES = 3;
+    static BASE_SPEED = 80;
 
     constructor(playState, shipType) {
         super(playState = playState);
@@ -45,6 +46,8 @@ export default class Player extends GameEntity {
         this.isHittable = true;
 
         this.isDead = false;
+
+        this.speed = Player.BASE_SPEED;
 
         this.shipSprites = Sprite.generateSpritesFromSpriteSheet(
             images.get(ImageName.Spaceships),

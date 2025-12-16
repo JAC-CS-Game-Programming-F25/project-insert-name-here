@@ -4,7 +4,7 @@ import Vector from "../../../lib/Vector.js";
 import Alien from "../../entities/aliens/Alien.js";
 import Bullet from "../../entities/Bullet.js";
 import GameEntity from "../../entities/GameEntity.js";
-import Player from "../../entities/Player.js"
+import Player from "../../entities/Player.js";
 import ShipType from "../../enums/PlayerShip.js"
 import { CANVAS_WIDTH, CANVAS_HEIGHT, context, stateStack, input, timer, highScoreManager, sounds, songs } from "../../globals.js";
 import GameBackground from "../../objects/Background.js";
@@ -29,10 +29,10 @@ export default class PlayState extends State {
 	
 	constructor(shipType, background = new GameBackground()) {
 		super();
+		
+		this.currentLevelValue = 1;
 
 		this.userInterface = new UserInterface(this);
-		
-		this.currentLevelValue = 6;
 
 		this.shipType = shipType
 		this.player = new Player(this, this.shipType);
