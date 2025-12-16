@@ -79,7 +79,7 @@
 		{
 			"name": "player-shoot",
 			"path": "../assets/sounds/effects/player-shoot.wav",
-			"size": 5,
+			"size": 30,
 			"volume": 0.2
 		},
 		{
@@ -136,21 +136,21 @@
 			"name": "menu",
 			"path": "../assets/sounds/music/041_Faint_Glow.mp3",
 			"size": 1,
-			"volume": 0.2,
+			"volume": 0.1,
 			"loop": true
 		},
 		{
 			"name": "play",
 			"path": "../assets/sounds/music/055_Smart_Race.mp3",
 			"size": 1,
-			"volume": 0.2,
+			"volume": 0.1,
 			"loop": true
 		},
 		{
 			"name": "game-over",
 			"path": "../assets/sounds/music/056_Faint_Courage.mp3",
 			"size": 1,
-			"volume": 0.2,
+			"volume": 0.1,
 			"loop": true
 		}
 	]

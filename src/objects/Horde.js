@@ -13,7 +13,7 @@ export default class Horde {
     static SCION_BASE_CHANCE = 4;
     static MATRIARCH_BASE_CHANCE = 2
     
-    static SCION_MAX_CHANCE = 0.7;
+    static SCION_MAX_CHANCE = 0.5;
     static MATRIARCH_MAX_CHANCE = 0.3;
     
     constructor(level, playState) {
@@ -21,8 +21,8 @@ export default class Horde {
         this.level = level;
         this.levelValue = level.levelValue;
 
-        this.scionChance = Math.max((Horde.SCION_BASE_CHANCE * (this.levelValue + 2))/100, Horde.SCION_MAX_CHANCE);
-        this.matriarchChance = Math.max((Horde.MATRIARCH_BASE_CHANCE * (this.levelValue + 2))/100, Horde.MATRIARCH_MAX_CHANCE);
+        this.scionChance = Math.min((Horde.SCION_BASE_CHANCE * (this.levelValue + 2))/100, Horde.SCION_MAX_CHANCE);
+        this.matriarchChance = Math.min((Horde.MATRIARCH_BASE_CHANCE * (this.levelValue + 2))/100, Horde.MATRIARCH_MAX_CHANCE);
 
         this.alienCount = this.levelValue + 4;
 
