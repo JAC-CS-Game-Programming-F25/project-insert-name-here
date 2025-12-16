@@ -46,7 +46,7 @@ export default class GameEntity {
 			this.dimensions.y + this.hitboxOffsets.dimensions.y,
 		);
 
-		this.didGoOffScreen();
+		this.didGoOutOfBounds();
 	}
 
 	render(offset = { x: 0, y: 0 }) {
@@ -65,6 +65,16 @@ export default class GameEntity {
 	}
 
 	didGoOffScreen() {
+		if (this.position.x < 0 || this.position.x > CANVAS_WIDTH && 
+			this.position.y < 0 || this.position.y > CANVAS_HEIGHT
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
+	didGoOutOfBounds() {
 		if (this.position.x < -30 || this.position.x > CANVAS_WIDTH + 30 && 
 			this.position.y < -30 || this.position.y > CANVAS_HEIGHT + 30
 		) {

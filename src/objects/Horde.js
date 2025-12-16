@@ -10,13 +10,19 @@ import AlienFactory from "../services/AlienFactory.js";
 export default class Horde {
     static BASE_SPAWN_DURATION = 1.5;
     static EVENT_HORIZON = 100;
+    static SCION_BASE_CHANCE = 4;
+    static MATRIARCH_BASE_CHANCE = 2
+    
+    static SCION_MAX_CHANCE = 0.7;
+    static MATRIARCH_MAX_CHANCE = 0.3;
     
     constructor(level, playState) {
         this.playState = playState
         this.level = level;
         this.levelValue = level.levelValue;
 
-        this.scionSpawnBaseChance = 4;
+        this.scionChance = Math.max((Horde.SCION_BASE_CHANCE * (this.levelValue + 2))/100, Horde.SCION_MAX_CHANCE);
+        this.matriarchChance = Math.max((Horde.MATRIARCH_BASE_CHANCE * (this.levelValue + 2))/100, Horde.MATRIARCH_MAX_CHANCE);
 
         this.alienCount = this.levelValue + 4;
 
@@ -65,18 +71,15 @@ export default class Horde {
 
     initializeAliens() {
         let aliens = []
-        let scionChance = (this.scionSpawnBaseChance * (this.levelValue + 2))/100;
 
-        if (this.levelValue  < 3) {
-            for (let a = 0; a < this.alienCount; a++) {
+        for (let a = 0; a < this.alienCount; a++) {
+            if (this.levelValue < 3) {
                 aliens.push(new Alien(this.playState));
             }
-        }
-        else {
-            for (let a = 0; a < this.alienCount; a++) {
+            else if (this.levelValue >= 3 && this.levelValue < 6) {
                 //console.log("Rolling for alien");
 
-                if (didSucceedPercentChance(scionChance)) {
+                if (didSucceedPercentChance(this.scionChance)) {
                     //console.log("Scion");
                     aliens.push(AlienFactory.createInstance(AlienType.Scion, this.playState));
                 }
@@ -85,7 +88,24 @@ export default class Horde {
                     aliens.push(AlienFactory.createInstance(AlienType.Alien, this.playState));
                 }
             }
+            else {
+                //console.log("Rolling for alien");
+                if (didSucceedPercentChance(this.scionChance)) {
+                    //console.log("Scion");
+                    aliens.push(AlienFactory.createInstance(AlienType.Scion, this.playState));
+                }
+                else if (didSucceedPercentChance(this.matriarchChance)) {
+                    //console.log("Matriarch");
+                    aliens.push(AlienFactory.createInstance(AlienType.Matriarch, this.playState));
+                }
+                else {
+                    //console.log("Alien");
+                    aliens.push(AlienFactory.createInstance(AlienType.Alien, this.playState));
+                }
+            }
         }
+        
+        
 
         return aliens;
     }

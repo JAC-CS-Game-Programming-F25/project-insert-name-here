@@ -12,17 +12,10 @@ import ScionReappearingState from '../../states/alien/scion/ScionReappearingStat
 import StateMachine from '../../../lib/StateMachine.js';
 
 export default class Scion extends Alien {
-    static BASE_TELEPORT_WAIT = 2;
+    static BASE_TELEPORT_WAIT = 2.5;
 
     constructor(playState) {
         super(playState = playState);
-
-        //this.distance = this.calculateDistanceToPlayer();
-
-        //this.movementAngle, this.radius = this.calculateDistanceToPlayer();
-
-        //this.angleSpeed = this.speed;
-        //this.radialSpeed = -this.angleSpeed/4;
 
         this.idleAnimation = new Animation([1], 0);
         this.teleportAnimation = new Animation([190,191,192,6], 0.1, 1);
@@ -41,7 +34,7 @@ export default class Scion extends Alien {
         if (!this.didGoOffScreen()) {
             //console.log("Set to hittable.")
             this.isHittable = true;
-        }
+        }        
 
         this.position.x += this.trajectory.x * (this.speed * dt);
         this.position.y += this.trajectory.y * (this.speed * dt);
@@ -64,32 +57,4 @@ export default class Scion extends Alien {
 
         return stateMachine;
     }
-
-    // updateScionPosition(dt) {
-    //     let currentTime = Date.now() - startTime
-
-    //     let t = 10 - ((currentTime * 2) % 10);
-
-    //     this.movementAngle = this.angleSpeed * t;
-    //     this.radius -= this.radialSpeed * t;
-
-    //     this.radius = Math.max(0, this.radius);
-
-    //     this.position.x = this.radius * Math.cos(this.degreesToRadians(this.movementAngle))
-    //     this.position.y = this.radius * Math.sin(this.degreesToRadians(this.movementAngle))
-
-    //     if (!this.didGoOffScreen()) {
-    //         this.isHittable = true;
-    //     }
-
-    //     //console.log(this.position);
-    // }
-
-    // calculateDistanceToPlayer() {
-    //     return Math.sqrt((this.playerPosition.x - this.position.x)**2 + (this.playerPosition.y - this.position.y)**2)
-    // }
-
-    // degreesToRadians(degrees) {
-    //     return degrees * (Math.PI/180);
-    // }
 }

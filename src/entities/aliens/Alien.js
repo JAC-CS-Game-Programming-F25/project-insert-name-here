@@ -28,8 +28,10 @@ export default class Alien extends GameEntity {
     static WIDTH = 16;
     static HEIGHT = 16;
     static MAX_SPEED = 40;
+    static MAX_MATRIARCH_SPEED = 80;    
     static BASE_POINTS = 10;
     static SCION_POINTS = 15;
+    static MATRIARCH_POINTS = 30;
 
     constructor(playState) {
         super(playState = playState);

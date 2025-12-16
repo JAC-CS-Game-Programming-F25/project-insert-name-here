@@ -1,4 +1,5 @@
 import Alien from "../entities/aliens/Alien.js";
+import Matriarch from "../entities/aliens/Matriarch.js";
 import Scion from "../entities/aliens/Scion.js";
 import AlienType from "../enums/AlienType.js";
 
@@ -16,6 +17,8 @@ export default class AlienFactory {
 				return new Alien(playState);
 			case AlienType.Scion:
 				return new Scion(playState);
+			case AlienType.Matriarch:
+				return new Matriarch(playState);
 		}
 	}
 }

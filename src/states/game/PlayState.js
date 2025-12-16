@@ -31,7 +31,7 @@ export default class PlayState extends State {
 
 		this.userInterface = new UserInterface(this);
 		
-		this.currentLevelValue = 1;
+		this.currentLevelValue = 6;
 
 		this.shipType = shipType
 		this.player = new Player(this, this.shipType);
@@ -84,9 +84,7 @@ export default class PlayState extends State {
 				entity.update(dt);
 			}
 
-			if (!(entity instanceof Alien)) {
-				entity.didGoOffScreen();
-			}
+			entity.didGoOutOfBounds();
 
 			this.currentlevel.currentHorde.aliens.forEach((alien) => {
 				this.currentlevel.currentHorde.manageCollisions(alien, entity)
