@@ -1,6 +1,6 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds, timer, GAME_TITLE } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds, timer, GAME_TITLE, songs } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
@@ -10,6 +10,7 @@ import ShipSelectScreenState from "./ShipSelectScreenState.js";
 import SoundName from "../../enums/assets/SoundName.js";
 import Easing from "../../../lib/Easing.js";
 import InstructionsScreenState from "./InstructionsScreenState.js";
+import SongName from "../../enums/assets/SongName.js"
 
 export default class TitleScreenState extends State {
 	constructor() {
@@ -19,6 +20,10 @@ export default class TitleScreenState extends State {
 
 		this.optionsOpacity = 1;
     }
+
+	enter() {
+		songs.play(SongName.Menu);
+	}
 
     update(dt) {
 		this.background.update(dt);

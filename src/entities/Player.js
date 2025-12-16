@@ -30,7 +30,7 @@ export default class Player extends GameEntity {
     static HEIGHT = 16;
     static BASE_FIRE_RATE = 0.3;
     static LASER_THRESHOLD = 100;
-    static MAX_LIVES = 3;
+    static MAX_LIVES = 1;
 
     constructor(playState, shipType) {
         super(playState = playState);

@@ -41,10 +41,6 @@
 			"path": "../assets/fonts/binxchr.ttf"
 		},
 		{
-			"name": "04B",
-			"path": "../assets/fonts/04B_21__.ttf"
-		},
-		{
 			"name": "Minecraftia",
 			"path": "../assets/fonts/Minecraftia-Regular.ttf"
 		}
@@ -140,19 +136,22 @@
 			"name": "menu",
 			"path": "../assets/sounds/music/041_Faint_Glow.mp3",
 			"size": 1,
-			"volume": 0.2
+			"volume": 0.2,
+			"loop": true
 		},
 		{
 			"name": "play",
 			"path": "../assets/sounds/music/055_Smart_Race.mp3",
 			"size": 1,
-			"volume": 0.2
+			"volume": 0.2,
+			"loop": true
 		},
 		{
 			"name": "game-over",
 			"path": "../assets/sounds/music/056_Faint_Courage.mp3",
-			"size": 5,
-			"volume": 0.2
+			"size": 1,
+			"volume": 0.2,
+			"loop": true
 		}
 	]
 }

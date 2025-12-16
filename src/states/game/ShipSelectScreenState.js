@@ -1,6 +1,6 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, images, sounds } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, images, sounds, songs } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
@@ -10,6 +10,7 @@ import ImageName from "../../enums/assets/ImageName.js";
 import Player from "../../entities/Player.js";
 import LevelTransitionState from "./LevelTransitionState.js";
 import SoundName from "../../enums/assets/SoundName.js";
+import SongName from "../../enums/assets/SongName.js";
 
 export default class ShipSelectScreenState extends State {
     constructor(background) {
@@ -65,6 +66,7 @@ export default class ShipSelectScreenState extends State {
 	checkForCommands() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
             stateStack.pop();
+            songs.stop(SongName.Menu);
             stateStack.push(new LevelTransitionState(1, this.background, this.currentShipIndex, null));
 		}
         else if (input.isKeyPressed(Input.KEYS.ESCAPE)) {

@@ -28,7 +28,8 @@ For each level (starting at 1), players will face a series of alien hordes/waves
 There will be three types of aliens that can appear throughout a play session, each with different AIs in the forms of their movement patterns:
 
 - Pawn: Pawns are simple aliens that will always move in a straight line towards the player.
-- Scion: Scions are aliens that slowly circle around the ship as they spawn, however their speed increases the closer they get (which caps out at a certain distance from the player).
+- Scion: Scions are aliens that disappear and reappear at a random location after a set interval, continuously approaching the player in a straight line otherwise.
+- Matriarchs: Matriarchs are aliens that slowly circle around and spiral towards the player once they spawn.
 
 In addition, there is a chance that upon an alien's defeat that the player gains one of the following power-ups (in which only one can be active at a time):
 
@@ -323,22 +324,28 @@ The GUI will be kept simple yet visually appealing, as to make sure the game is 
 
 All sounds were created and downloaded from [jsfxr](https://sfxr.me/) for the following sound effects (subject to change):
 
-- [playerShoot](./assets/sounds/playerShoot.wav)
-- [playerDeath](./assets/sounds/playerDeath.wav)
-- [enemyDeath](./assets/sounds/enemyDeath.wav)
-- [nextLevel](./assets/sounds/nextLevel.wav)
-- [nextHorde](./assets/sounds/nextHorde.wav)
-- [rapidFire](./assets/sounds/rapidFire.wav)
-- [shield](./assets/sounds/shield.wav)
-- [timeDilation](./assets/sounds/timeDilation.wav)
+- [player-shoot](./assets/sounds/effects/player-shoot.wav)
+- [player-death](./assets/sounds/effects/player-death.wav)
+- [player-revive](./assets/sounds/effects/player-revive.wav)
+- [enemy-death](./assets/sounds/effects/enemy-death.wav)
+- [next-level](./assets/sounds/effects/next-level.wav)
+- [next-horde](./assets/sounds/effects/next-horde.wav)
+- [rapid-fire](./assets/sounds/effects/rapid-fire.wav)
+- [shield](./assets/sounds/effects/shield.wav)
+- [time-dilation](./assets/sounds/effects/time-dilation.wav)
+- [ability-deactivate](./assets/sounds/effects/ability-deactivate.wav)
+- [proceed](./assets/sounds/effects/proceed.wav)
+- [leave](./assets/sounds/effects/leave.wav)
+- [pause](./assets/sounds/effects/pause.wav)
+- [ship-select](./assets/sounds/effects/ship-select.wav)
 
-Music to be added.
+All music is credited to Toby Fox from _Deltarune: Chapter 2_:
+
+- [Faint Glow](./assets/sounds/music/041_Faint_Glow.mp3)
+- [Smart Race](./assets/sounds/music/041_Faint_Glow.mp3)
+- [Faint Courage](./assets/sounds/music/041_Faint_Glow.mp3)
 
 ## Nice to Have Features
-
-### Minor: Third Alien - Matriarch
-
-Matriarchs are the most difficult alien to destroy as after a certain period of time they will teleport to a random area on the screen. They are normally invincible but have a specific time-window before and after their next teleportation where they are vulnerable to attack. Its invincible state is depicted as a repeated flashing from transparent to opaque, which otherwise isn't present when it's vulnerable.
 
 ### Minor: Third Power-Up - Time Dilation
 

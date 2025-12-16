@@ -1,7 +1,8 @@
 import State from "../../../lib/State.js";
+import SongName from "../../enums/assets/SongName.js";
 import SoundName from "../../enums/assets/SoundName.js";
 import PlayerStateName from "../../enums/states/PlayerStateName.js";
-import { sounds, timer } from "../../globals.js";
+import { songs, sounds, timer } from "../../globals.js";
 
 export default class PlayerDyingState extends State {
     static DEAD_DURATION = 2;
@@ -16,6 +17,7 @@ export default class PlayerDyingState extends State {
     }
 
     enter() {
+        songs.pause(SongName.Play);
         sounds.play(SoundName.PlayerDeath);
         this.player.sprites = this.player.orangeEffectSprites;
         this.player.currentAnimation = this.animation;

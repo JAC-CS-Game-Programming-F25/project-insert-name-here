@@ -6,7 +6,7 @@ import Bullet from "../../entities/Bullet.js";
 import GameEntity from "../../entities/GameEntity.js";
 import Player from "../../entities/Player.js"
 import ShipType from "../../enums/PlayerShip.js"
-import { CANVAS_WIDTH, CANVAS_HEIGHT, context, stateStack, input, timer, highScoreManager, sounds } from "../../globals.js";
+import { CANVAS_WIDTH, CANVAS_HEIGHT, context, stateStack, input, timer, highScoreManager, sounds, songs } from "../../globals.js";
 import GameBackground from "../../objects/Background.js";
 import Level from "../../objects/Level.js";
 import GameOverState from "./GameOverState.js";
@@ -17,6 +17,7 @@ import LevelTransitionState from "./LevelTransitionState.js";
 import SoundName from "../../enums/assets/SoundName.js";
 import AbilityType from "../../enums/AbilityType.js";
 import UserInterface from "../../services/UserInterface.js";
+import SongName from "../../enums/assets/SongName.js";
 
 export default class PlayState extends State {
 	static RAPID_FIRE_DURATION = 6;
@@ -46,7 +47,6 @@ export default class PlayState extends State {
 
 		this.isAbilityActive = false;
 		this.abilityTimer = 0;
-		this.abilityDuration = 0;
 
 		this.isTimeDilationActive = false;
 
@@ -55,6 +55,10 @@ export default class PlayState extends State {
 		this.currentAbility = "";
 
 		//console.log(this.currentlevel.hordes);
+	}
+ 
+	enter() {
+		songs.play(SongName.Play);
 	}
 
 	update(dt) {		
@@ -141,7 +145,11 @@ export default class PlayState extends State {
 
 	nextLevel() {
 		console.log("NEXT LEVEL");
-		this.deactivateAbilities();
+
+		if (this.isAbilityActive) {
+			this.deactivateAbilities();
+		}
+		
 		this.player.adjustFireRate();
 
 		this.currentLevelValue += 1
@@ -151,6 +159,7 @@ export default class PlayState extends State {
 	}
 
 	gameOver() {
+		songs.stop(SongName.Play);
 		console.log("GAME OVER");
 
 		highScoreManager.update(this.score);
@@ -166,7 +175,7 @@ export default class PlayState extends State {
 	}
 
 	checkForAbilityEnd() {
-		if (this.abilityTimer <= 0) {
+		if (this.abilityTimer <= 0 && this.isAbilityActive == true) {
 			this.isAbilityActive = false;
 			this.deactivateAbilities();
 		}
@@ -200,6 +209,8 @@ export default class PlayState extends State {
 	}
 
 	deactivateAbilities() {
+		sounds.play(SoundName.AbilityDeactivate);
+
 		this.currentAbility = AbilityType.Default;
 		this.isAbilityActive = false;
 		this.isTimeDilationActive = false;

@@ -8,6 +8,8 @@
  * Asset sources
  */
 import Game from '../lib/Game.js';
+import SongName from './enums/assets/SongName.js';
+import SoundName from './enums/assets/SoundName.js';
 import {
 	canvas,
 	CANVAS_HEIGHT,

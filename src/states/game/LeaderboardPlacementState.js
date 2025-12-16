@@ -2,7 +2,8 @@ import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
 import Colour from "../../enums/assets/ColorName.js";
 import FontName from "../../enums/assets/FontName.js";
-import { CANVAS_HEIGHT, CANVAS_WIDTH, context, highScoreManager, input, stateStack } from "../../globals.js";
+import SongName from "../../enums/assets/SongName.js";
+import { CANVAS_HEIGHT, CANVAS_WIDTH, context, highScoreManager, input, songs, stateStack } from "../../globals.js";
 
 export default class LeaderboardPlacementState extends State {
     constructor(background) {
@@ -38,6 +39,8 @@ export default class LeaderboardPlacementState extends State {
 
 	checkForNewGame() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
+			songs.stop(SongName.GameOver);
+			songs.play(SongName.Menu);
             stateStack.pop();
 		}
 	}

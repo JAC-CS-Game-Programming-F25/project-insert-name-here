@@ -1,10 +1,12 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, songs } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js"
 import Colour from "../../enums/assets/ColorName.js"
 import LeaderboardPlacementState from "./LeaderboardPlacementState.js";
+import LevelTransitionState from "./LevelTransitionState.js";
+import SongName from "../../enums/assets/SongName.js";
 
 export default class GameOverState extends State {
 	constructor(shipType, background) {
@@ -12,6 +14,10 @@ export default class GameOverState extends State {
 
 		this.shipType = shipType;
 		this.background = background;
+	}
+
+	enter() {
+		songs.play(SongName.GameOver);
 	}
 
 	update() {
@@ -40,8 +46,9 @@ export default class GameOverState extends State {
 
 	checkForNewGame() {
 		if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
+			songs.stop(SongName.GameOver);
 			stateStack.pop();
-			stateStack.push(new PlayState(this.shipType, this.background))
+			stateStack.push(new LevelTransitionState(1, this.background, this.shipType, null));
 		}
 		else if (input.isKeyPressed(Input.KEYS.ENTER)) {
 			stateStack.pop();

@@ -104,8 +104,6 @@ export default class Horde {
                 }
             }
         }
-        
-        
 
         return aliens;
     }
@@ -128,10 +126,6 @@ export default class Horde {
         else if (alien.didCollideWithEntity(entity) && entity instanceof Player) {
             alien.isDead = true;
             entity.isDead = true;
-
-            if (alien.cleanUp) {
-                entity.loseLife();
-            }
         }
     }
 
