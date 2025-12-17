@@ -10,6 +10,8 @@ import HighScoreManager from './services/HighScoreManager.js';
 export const canvas = document.createElement('canvas');
 export const context =
 	canvas.getContext('2d') || new CanvasRenderingContext2D();
+
+	
 const assetDefinition = await fetch('./config/assets.json').then((response) =>
 	response.json()
 );

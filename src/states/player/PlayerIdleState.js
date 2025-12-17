@@ -8,6 +8,8 @@ import PlayerStateName from "../../enums/states/PlayerStateName.js";
 import { CANVAS_HEIGHT, CANVAS_WIDTH, input, sounds, timer } from "../../globals.js";
 
 export default class PlayerIdleState extends State {
+    static DIAGONAL_SCALE = 1 / Math.sqrt(2);
+    
     constructor(player, playstate, animation) {
         super();
 
@@ -32,7 +34,7 @@ export default class PlayerIdleState extends State {
 
         this.player.fireTimer -= dt;
         
-        //this.checkForMovement(dt);
+        this.checkForMovement(dt);
         this.checkForShooting();
         this.checkForDying();
     }
@@ -53,46 +55,60 @@ export default class PlayerIdleState extends State {
     }
 
     checkForMovement(dt) {
-        if (input.isKeyPressed(Input.KEYS.W)) {
-            this.player.position.y -= this.player.speed * dt;
-
-            if (
-				this.player.position.y <= 0
-			) {
-				this.player.position.y =
-					0
-			}
+        if (input.isKeyHeld(Input.KEYS.W)) {
+            if (input.isKeyHeld(Input.KEYS.D)) {
+                this.player.position.x += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else if (input.isKeyHeld(Input.KEYS.A)) {
+                this.player.position.x -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else {
+                this.player.position.y -= this.player.speed * dt;
+            }
         }
-        else if (input.isKeyPressed(Input.KEYS.A)) {
-            this.player.position.x -= this.player.speed * dt;
-
-            if (
-				this.player.position.x <= 0
-			) {
-				this.player.position.x =
-					0
-			}
+        else if (input.isKeyHeld(Input.KEYS.A)) {
+            if (input.isKeyHeld(Input.KEYS.W)) {
+                this.player.position.x -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else if (input.isKeyHeld(Input.KEYS.S)) {
+                this.player.position.x -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else {
+                this.player.position.x -= this.player.speed * dt;
+            }
         }
-        else if (input.isKeyPressed(Input.KEYS.S)) {
-            this.player.position.y += this.player.speed * dt;
-
-            if (
-				this.player.position.y >= CANVAS_HEIGHT
-			) {
-				this.player.position.y =
-					CANVAS_HEIGHT
-			}
+        else if (input.isKeyHeld(Input.KEYS.S)) {
+            if (input.isKeyHeld(Input.KEYS.D)) {
+                this.player.position.x += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else if (input.isKeyHeld(Input.KEYS.A)) {
+                this.player.position.x -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else {
+                this.player.position.y += this.player.speed * dt;
+            }
         }
-        else if (input.isKeyPressed(Input.KEYS.D)) {
-            this.player.position.x += this.player.speed * dt;
-
-            if (
-				this.player.position.x >= CANVAS_WIDTH
-			) {
-				this.player.position.x =
-					CANVAS_WIDTH
-			}
+        else if (input.isKeyHeld(Input.KEYS.D)) {
+            if (input.isKeyHeld(Input.KEYS.W)) {
+                this.player.position.x += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y -= this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else if (input.isKeyHeld(Input.KEYS.S)) {
+                this.player.position.x += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+                this.player.position.y += this.player.speed * dt * PlayerIdleState.DIAGONAL_SCALE;
+            }
+            else {
+                this.player.position.x += this.player.speed * dt;
+            }
         }
+
+        this.checkForOffScreen();
     }
 
     checkForShooting() {
@@ -119,6 +135,32 @@ export default class PlayerIdleState extends State {
 
             this.player.fireTimer = this.player.fireRate;
         }
+    }
+
+    checkForOffScreen() {
+        if (
+			this.player.position.x <= 0
+		) {
+			this.player.position.x = 0
+		}
+
+        if (
+			this.player.position.x >= CANVAS_WIDTH
+		) {
+			this.player.position.x = CANVAS_WIDTH
+		}
+
+        if (
+			this.player.position.y <= 0
+		) {
+			this.player.position.y = 0
+		}
+        
+        if (
+			this.player.position.y >= CANVAS_HEIGHT
+		) {
+			this.player.position.y = CANVAS_HEIGHT
+		}
     }
 
     loseLife() {

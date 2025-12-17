@@ -35,7 +35,7 @@ export default class Matriarch extends Alien {
             -(this.playerPosition.y - this.position.y)
         );
 
-        this.angle += Math.PI/2 - 0.2;
+        this.angle += Math.PI/2 - 0.5;
 
         this.trajectory = this.calculateTrajectory();
     }

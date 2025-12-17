@@ -72,7 +72,7 @@ export default class ShipSelectScreenState extends State {
         this.renderSelectionArrows();
 	}
 
-	async checkForCommands() {
+	checkForCommands() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
             stateStack.pop();
             songs.stop(SongName.Menu);
@@ -101,9 +101,9 @@ export default class ShipSelectScreenState extends State {
             }
         }
 
-        await timer.wait(0.5).then(() => {
-            this.resetArrowPositions();
-        });
+        timer.wait(0.5, () => {});
+
+        this.resetArrowPositions();
 	}
 
     renderSelectionArrows() {
