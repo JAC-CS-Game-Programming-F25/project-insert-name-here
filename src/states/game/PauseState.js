@@ -1,10 +1,11 @@
 import Input from "../../../lib/Input.js";
 import State from "../../../lib/State.js";
-import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds } from "../../globals.js";
+import { input, stateStack, context, CANVAS_WIDTH, CANVAS_HEIGHT, sounds, songs } from "../../globals.js";
 import PlayState from "./PlayState.js";
 import FontName from "../../enums/assets/FontName.js";
 import Colour from "../../enums/assets/ColorName.js";
 import SoundName from "../../enums/assets/SoundName.js";
+import SongName from "../../enums/assets/SongName.js";
 
 export default class PauseState extends State {
     constructor() {
@@ -13,6 +14,7 @@ export default class PauseState extends State {
 
 	enter() {
 		sounds.play(SoundName.Pause);
+		songs.pause(SongName.Play);
 	}
 
     update() {
@@ -45,12 +47,15 @@ export default class PauseState extends State {
 	checkForPlay() {
 		if (input.isKeyPressed(Input.KEYS.ENTER)) {
 			sounds.play(SoundName.Leave);
+			songs.stop(SongName.Play);
 			stateStack.pop();
 			stateStack.pop();
+			songs.play(SongName.Menu);
 		}
 		if (input.isKeyPressed(Input.KEYS.ESCAPE)) {
 			sounds.play(SoundName.Pause);
 			stateStack.pop();
+			songs.play(SongName.Play);
 			sounds.stop(SoundName.Pause);
 		}
 	}

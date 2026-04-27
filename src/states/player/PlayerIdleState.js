@@ -34,7 +34,7 @@ export default class PlayerIdleState extends State {
 
         this.player.fireTimer -= dt;
         
-        this.checkForMovement(dt);
+        //this.checkForMovement(dt);
         this.checkForShooting();
         this.checkForDying();
     }

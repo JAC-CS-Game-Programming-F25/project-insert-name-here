@@ -27,7 +27,6 @@ export default class TitleScreenState extends State {
 
     update(dt) {
 		this.background.update(dt);
-		
 		this.checkForPlay();
 	}
 
